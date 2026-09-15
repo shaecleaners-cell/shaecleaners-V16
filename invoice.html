@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Invoice - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="invoice.css"
+  >
+
+</head>
+
+<body>
+
+<div class="invoice-page">
+
+
+  <!-- HEADER -->
+
+  <header class="invoice-header">
+
+    <button
+      class="back-button"
+      onclick="goHome()"
+    >
+
+      <i class="fa-solid fa-house"></i>
+
+    </button>
+
+    <strong>
+      Invoice Pesanan
+    </strong>
+
+    <button
+      class="back-button"
+      onclick="printInvoice()"
+    >
+
+      <i class="fa-solid fa-print"></i>
+
+    </button>
+
+  </header>
+
+
+  <!-- INVOICE -->
+
+  <main class="invoice-container">
+
+    <section class="invoice-card">
+
+
+      <!-- BRAND -->
+
+      <div class="invoice-brand">
+
+        <div class="brand-logo">
+          S
+        </div>
+
+        <div>
+
+          <strong>
+            Shae Cleaners
+          </strong>
+
+          <span>
+            Cleaning Service
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div
+        id="invoiceStatus"
+        class="invoice-status"
+      >
+        Menunggu Konfirmasi
+      </div>
+
+
+      <!-- INVOICE NUMBER -->
+
+      <div class="invoice-number">
+
+        <span>
+          Nomor Invoice
+        </span>
+
+        <strong id="invoiceNumber">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="divider"></div>
+
+
+      <!-- CUSTOMER -->
+
+      <div class="section-title">
+        Data Customer
+      </div>
+
+
+      <div class="info-row">
+
+        <span>
+          Nama
+        </span>
+
+        <strong id="customerName">
+          -
+        </strong>
+
+      </div>
+
+
+      <div class="info-row">
+
+        <span>
+          WhatsApp
+        </span>
+
+        <strong id="customerPhone">
+          -
+        </strong>
+
+      </div>
+
+
+      <!-- SERVICE -->
+
+      <div class="section-title service-title">
+        Detail Layanan
+      </div>
+
+
+      <div class="service-box">
+
+        <div class="service-icon">
+
+          <i class="fa-solid fa-broom"></i>
+
+        </div>
+
+
+        <div class="service-info">
+
+          <strong id="serviceName">
+            -
+          </strong>
+
+          <span id="serviceItem">
+            -
+          </span>
+
+        </div>
+
+
+        <strong id="serviceTotal">
+          Rp0
+        </strong>
+
+      </div>
+
+
+      <div class="info-row">
+
+        <span>
+          Jumlah
+        </span>
+
+        <strong id="serviceQty">
+          1
+        </strong>
+
+      </div>
+
+
+      <!-- ADDRESS -->
+
+      <div class="section-title">
+        Alamat Pengerjaan
+      </div>
+
+
+      <div
+        id="invoiceAddress"
+        class="address-box"
+      >
+        -
+      </div>
+
+
+      <!-- SCHEDULE -->
+
+      <div class="section-title">
+        Jadwal Cleaning
+      </div>
+
+
+      <div class="schedule-box">
+
+        <div>
+
+          <i class="fa-regular fa-calendar"></i>
+
+          <span id="orderDate">
+            -
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <i class="fa-regular fa-clock"></i>
+
+          <span id="orderTime">
+            -
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- PAYMENT -->
+
+      <div class="section-title">
+        Pembayaran
+      </div>
+
+
+      <div class="info-row">
+
+        <span>
+          Metode
+        </span>
+
+        <strong id="paymentMethod">
+          -
+        </strong>
+
+      </div>
+
+
+      <!-- TOTAL -->
+
+      <div class="divider"></div>
+
+
+      <div class="price-row">
+
+        <span>
+          Subtotal
+        </span>
+
+        <strong id="subtotal">
+          Rp0
+        </strong>
+
+      </div>
+
+
+      <div class="price-row discount">
+
+        <span>
+          Diskon
+        </span>
+
+        <strong id="discount">
+          - Rp0
+        </strong>
+
+      </div>
+
+
+      <div class="total-box">
+
+        <span>
+          TOTAL
+        </span>
+
+        <strong id="grandTotal">
+          Rp0
+        </strong>
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ACTION -->
+
+    <section class="invoice-actions">
+
+      <button
+        class="whatsapp-button"
+        onclick="sendWhatsApp()"
+      >
+
+        <i class="fa-brands fa-whatsapp"></i>
+
+        Kirim Invoice ke WhatsApp
+
+      </button>
+
+
+      <button
+        class="tracking-button"
+        onclick="openTracking()"
+      >
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        Lihat Tracking Pesanan
+
+      </button>
+
+
+      <button
+        class="home-button"
+        onclick="goHome()"
+      >
+
+        Kembali ke Beranda
+
+      </button>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script src="invoice.js"></script>
+
+</body>
+
+</html>

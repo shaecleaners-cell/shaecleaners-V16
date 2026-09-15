@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="theme-color" content="#00A86B">
+  <title>Shae Cleaners - Marketplace Jasa</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Swiper -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="app-header">
+
+  <div class="header-top">
+
+    <div class="brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-droplet"></i>
+      </div>
+
+      <div class="brand-text">
+        <strong>Shae</strong>
+        <span>Cleaners</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+
+      <button onclick="openNotifications()" aria-label="Notifikasi">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notification-dot"></span>
+      </button>
+
+      <button onclick="openChat()" aria-label="Chat">
+        <i class="fa-regular fa-comment-dots"></i>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-box" onclick="goSearch()">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>Cari jasa cleaning...</span>
+  </div>
+
+</header>
+
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="hero-wrapper">
+
+  <div class="swiper heroSwiper">
+
+    <div class="swiper-wrapper">
+
+      <div class="swiper-slide">
+        <div class="hero-card hero-one">
+
+          <div class="hero-content">
+            <small>PROMO SPESIAL</small>
+
+            <h2>
+              Cleaning Lebih Hemat
+            </h2>
+
+            <p>
+              Dapatkan promo menarik untuk layanan pilihan.
+            </p>
+
+            <button onclick="goPromo()">
+              Lihat Promo
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <div class="hero-image">
+            🧹
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="swiper-slide">
+        <div class="hero-card hero-two">
+
+          <div class="hero-content">
+            <small>SOFA & KASUR</small>
+
+            <h2>
+              Rumah Bersih,
+              Hati Tenang
+            </h2>
+
+            <p>
+              Booking cleaning service dengan mudah.
+            </p>
+
+            <button onclick="goOrder('Sofa')">
+              Pesan Sekarang
+            </button>
+          </div>
+
+          <div class="hero-image">
+            🛋️
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="swiper-slide">
+        <div class="hero-card hero-three">
+
+          <div class="hero-content">
+            <small>BOOKING ONLINE</small>
+
+            <h2>
+              Pesan Jasa
+              Sekarang
+            </h2>
+
+            <p>
+              Pilih layanan, jadwal dan alamat Anda.
+            </p>
+
+            <button onclick="goOrder()">
+              Mulai Booking
+            </button>
+          </div>
+
+          <div class="hero-image">
+            ✨
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= QUICK MENU ================= -->
+<section class="quick-section">
+
+  <div class="section-title">
+    <h3>Layanan</h3>
+    <button onclick="goAllServices()">
+      Lihat Semua
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+
+  <div class="service-grid">
+
+    <div class="service-item" onclick="goOrder('Sofa')">
+      <div class="service-icon">
+        <img src="assets/icons/sofa.png" alt="Cuci Sofa">
+      </div>
+      <span>Cuci Sofa</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('Kasur')">
+      <div class="service-icon">
+        <img src="assets/icons/kasur.png" alt="Cuci Kasur">
+      </div>
+      <span>Cuci Kasur</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('Jok Mobil')">
+      <div class="service-icon">
+        <img src="assets/icons/jokmobil.png" alt="Jok Mobil">
+      </div>
+      <span>Jok Mobil</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('Karpet')">
+      <div class="service-icon">
+        <img src="assets/icons/karpet.png" alt="Cuci Karpet">
+      </div>
+      <span>Cuci Karpet</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('Kursi')">
+      <div class="service-icon">
+        <img src="assets/icons/kursi.png" alt="Cuci Kursi">
+      </div>
+      <span>Cuci Kursi</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('Gorden')">
+      <div class="service-icon">
+        <img src="assets/icons/gorden.png" alt="Cuci Gorden">
+      </div>
+      <span>Cuci Gorden</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('AC')">
+      <div class="service-icon">
+        <img src="assets/icons/ac.png" alt="Cuci AC">
+      </div>
+      <span>Cuci AC</span>
+    </div>
+
+
+    <div class="service-item" onclick="goOrder('Home Cleaning')">
+      <div class="service-icon">
+        <img src="assets/icons/homecleaning.png" alt="Home Cleaning">
+      </div>
+      <span>Home Cleaning</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PROMO STRIP ================= -->
+<section class="promo-strip">
+
+  <div class="promo-icon">
+    <i class="fa-solid fa-ticket"></i>
+  </div>
+
+  <div class="promo-info">
+    <strong>Promo untuk kamu</strong>
+    <span>Temukan voucher cleaning hari ini</span>
+  </div>
+
+  <button onclick="goPromo()">
+    Klaim
+  </button>
+
+</section>
+
+
+<!-- ================= POPULAR ================= -->
+<section class="popular-section">
+
+  <div class="section-title">
+    <h3>Layanan Populer</h3>
+
+    <button onclick="goAllServices()">
+      Lihat Semua
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+
+  <div class="popular-list">
+
+    <!-- CARD 1 -->
+    <article class="service-card"
+             onclick="goOrder('Sofa')">
+
+      <div class="card-image sofa-image">
+        <span class="badge">PROMO</span>
+        <span class="image-emoji">🛋️</span>
+      </div>
+
+      <div class="card-body">
+
+        <h4>Cuci Sofa</h4>
+
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <strong>4.9</strong>
+          <span>(1.2rb)</span>
+        </div>
+
+        <p class="sold">
+          Banyak dipesan
+        </p>
+
+        <div class="price">
+          Mulai <strong>Rp60.000</strong>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- CARD 2 -->
+    <article class="service-card"
+             onclick="goOrder('Kasur')">
+
+      <div class="card-image bed-image">
+        <span class="badge">HEMAT</span>
+        <span class="image-emoji">🛏️</span>
+      </div>
+
+      <div class="card-body">
+
+        <h4>Cuci Kasur</h4>
+
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <strong>4.9</strong>
+          <span>(980)</span>
+        </div>
+
+        <p class="sold">
+          Banyak dipesan
+        </p>
+
+        <div class="price">
+          Mulai <strong>Rp150.000</strong>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- CARD 3 -->
+    <article class="service-card"
+             onclick="goOrder('Jok Mobil')">
+
+      <div class="card-image car-image">
+        <span class="badge">POPULER</span>
+        <span class="image-emoji">🚗</span>
+      </div>
+
+      <div class="card-body">
+
+        <h4>Cuci Jok Mobil</h4>
+
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <strong>4.8</strong>
+          <span>(760)</span>
+        </div>
+
+        <p class="sold">
+          Banyak dipesan
+        </p>
+
+        <div class="price">
+          Mulai <strong>Rp250.000</strong>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <!-- CARD 4 -->
+    <article class="service-card"
+             onclick="goOrder('Karpet')">
+
+      <div class="card-image carpet-image">
+        <span class="badge">TERLARIS</span>
+        <span class="image-emoji">🧹</span>
+      </div>
+
+      <div class="card-body">
+
+        <h4>Cuci Karpet</h4>
+
+        <div class="rating">
+          <i class="fa-solid fa-star"></i>
+          <strong>4.9</strong>
+          <span>(650)</span>
+        </div>
+
+        <p class="sold">
+          Banyak dipesan
+        </p>
+
+        <div class="price">
+          Mulai <strong>Rp13.000/m²</strong>
+        </div>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+<nav class="bottom-nav">
+
+  <button class="nav-item active"
+          onclick="goHome()">
+
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+
+  </button>
+
+
+  <button class="nav-item"
+          onclick="goOrder()">
+
+    <i class="fa-solid fa-receipt"></i>
+    <span>Pesanan</span>
+
+  </button>
+
+
+  <button class="nav-item center-button"
+          onclick="goOrder()">
+
+    <div class="order-button">
+      <i class="fa-solid fa-plus"></i>
+    </div>
+
+    <span>Booking</span>
+
+  </button>
+
+
+  <button class="nav-item"
+          onclick="openChat()">
+
+    <i class="fa-regular fa-comment-dots"></i>
+    <span>Chat</span>
+
+  </button>
+
+
+  <button class="nav-item"
+          onclick="goAccount()">
+
+    <i class="fa-regular fa-user"></i>
+    <span>Akun</span>
+
+  </button>
+
+</nav>
+
+
+<!-- Swiper -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>

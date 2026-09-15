@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Alamat Saya - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="alamat.css"
+  >
+</head>
+
+<body>
+
+<div class="address-page">
+
+  <!-- HEADER -->
+
+  <header class="address-header">
+
+    <button
+      class="back-button"
+      onclick="goBack()"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+
+    <strong>
+      Alamat Saya
+    </strong>
+
+    <button
+      class="add-header-button"
+      onclick="openAddressForm()"
+    >
+      <i class="fa-solid fa-plus"></i>
+    </button>
+
+  </header>
+
+
+  <!-- CONTENT -->
+
+  <main class="address-content">
+
+    <div class="page-title">
+
+      <h1>
+        Alamat Cleaning
+      </h1>
+
+      <p>
+        Simpan alamat agar pemesanan lebih cepat.
+      </p>
+
+    </div>
+
+
+    <!-- LIST ALAMAT -->
+
+    <div
+      id="addressList"
+      class="address-list"
+    ></div>
+
+
+    <!-- EMPTY -->
+
+    <div
+      id="emptyAddress"
+      class="empty-address"
+      style="display:none;"
+    >
+
+      <div class="empty-icon">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+      </div>
+
+      <strong>
+        Belum ada alamat
+      </strong>
+
+      <span>
+        Tambahkan alamat untuk memudahkan
+        proses pemesanan.
+      </span>
+
+      <button
+        onclick="openAddressForm()"
+      >
+        + Tambah Alamat
+      </button>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <section
+      id="addressForm"
+      class="form-card"
+      style="display:none;"
+    >
+
+      <div class="form-title">
+
+        <strong id="formTitle">
+          Tambah Alamat
+        </strong>
+
+        <button
+          onclick="closeAddressForm()"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+
+      <form
+        onsubmit="saveAddress(event)"
+      >
+
+        <input
+          type="hidden"
+          id="editId"
+        >
+
+
+        <div class="input-group">
+
+          <label>
+            Label Alamat
+          </label>
+
+          <input
+            type="text"
+            id="label"
+            placeholder="Contoh: Rumah"
+            required
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Nama Penerima
+          </label>
+
+          <input
+            type="text"
+            id="recipient"
+            placeholder="Nama penerima"
+            required
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Nomor WhatsApp
+          </label>
+
+          <input
+            type="tel"
+            id="addressPhone"
+            placeholder="08xxxxxxxxxx"
+            required
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Alamat Lengkap
+          </label>
+
+          <textarea
+            id="address"
+            rows="3"
+            placeholder="Nama jalan, nomor rumah, RT/RW..."
+            required
+          ></textarea>
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Kecamatan
+          </label>
+
+          <input
+            type="text"
+            id="district"
+            placeholder="Kecamatan"
+            required
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Kota / Kabupaten
+          </label>
+
+          <input
+            type="text"
+            id="city"
+            placeholder="Kota / Kabupaten"
+            required
+          >
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Catatan
+          </label>
+
+          <textarea
+            id="note"
+            rows="2"
+            placeholder="Contoh: Rumah pagar hitam, dekat minimarket"
+          ></textarea>
+
+        </div>
+
+
+        <label class="main-address">
+
+          <input
+            type="checkbox"
+            id="isMain"
+          >
+
+          <span>
+            Jadikan alamat utama
+          </span>
+
+        </label>
+
+
+        <button
+          type="submit"
+          class="save-button"
+        >
+
+          <i class="fa-solid fa-check"></i>
+
+          Simpan Alamat
+
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script src="alamat.js"></script>
+
+</body>
+</html>

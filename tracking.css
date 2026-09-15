@@ -1,0 +1,689 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+:root {
+
+  --green: #00a86b;
+
+  --green-dark: #008f5a;
+
+  --green-light: #eafff5;
+
+  --text: #202124;
+
+  --muted: #8b9290;
+
+  --border: #e4e8e6;
+
+  --bg: #f5f7f8;
+
+}
+
+
+body {
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    var(--bg);
+
+  color:
+    var(--text);
+
+  padding-bottom: 30px;
+}
+
+
+/* HEADER */
+
+.tracking-header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+
+  height: 60px;
+
+  padding: 0 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00a86b,
+      #00bd79
+    );
+
+  box-shadow:
+    0 3px 12px
+    rgba(0,0,0,.12);
+}
+
+
+.header-button {
+
+  width: 38px;
+
+  height: 38px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: white;
+
+  background:
+    rgba(255,255,255,.16);
+
+  cursor: pointer;
+}
+
+
+.header-title {
+
+  text-align: center;
+}
+
+
+.header-title strong {
+
+  display: block;
+
+  font-size: 15px;
+}
+
+
+.header-title span {
+
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 8px;
+
+  opacity: .85;
+}
+
+
+/* CONTAINER */
+
+.tracking-container {
+
+  width: 100%;
+
+  max-width: 600px;
+
+  margin: auto;
+
+  padding:
+    10px 0 25px;
+}
+
+
+/* INVOICE MINI */
+
+.invoice-mini {
+
+  margin:
+    4px 13px 9px;
+
+  padding:
+    12px 13px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  border-radius: 12px;
+
+  background: white;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.03);
+}
+
+
+.invoice-mini span {
+
+  display: block;
+
+  margin-bottom: 4px;
+
+  color:
+    #999;
+
+  font-size: 7px;
+}
+
+
+.invoice-mini strong {
+
+  display: block;
+
+  font-size: 9px;
+}
+
+
+.status-mini {
+
+  text-align: right;
+}
+
+
+.status-mini strong {
+
+  color:
+    var(--green-dark);
+
+  font-size: 8px;
+}
+
+
+/* CARD */
+
+.tracking-card {
+
+  margin:
+    7px 13px;
+
+  padding:
+    14px;
+
+  border-radius: 13px;
+
+  background: white;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.03);
+}
+
+
+.card-title {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 14px;
+
+  font-size: 10px;
+}
+
+
+.card-title i {
+
+  color:
+    var(--green);
+
+  font-size: 13px;
+}
+
+
+/* SERVICE */
+
+.service-box {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  background:
+    #f8faf9;
+}
+
+
+.service-icon {
+
+  width: 39px;
+
+  height: 39px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 10px;
+
+  color:
+    var(--green);
+
+  background:
+    var(--green-light);
+
+  font-size: 14px;
+}
+
+
+.service-info {
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.service-info strong {
+
+  display: block;
+
+  margin-bottom: 3px;
+
+  font-size: 9px;
+}
+
+
+.service-info span {
+
+  display: block;
+
+  color:
+    #777;
+
+  font-size: 7px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.service-info small {
+
+  display: block;
+
+  margin-top: 3px;
+
+  color:
+    #aaa;
+
+  font-size: 6px;
+}
+
+
+.service-total {
+
+  color:
+    var(--green-dark);
+
+  font-size: 9px;
+
+  white-space: nowrap;
+}
+
+
+/* TIMELINE */
+
+.timeline {
+
+  position: relative;
+
+  padding-left: 3px;
+}
+
+
+.timeline::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 18px;
+
+  top: 18px;
+
+  bottom: 18px;
+
+  width: 2px;
+
+  background:
+    #e5e8e7;
+}
+
+
+.timeline-item {
+
+  position: relative;
+
+  display: flex;
+
+  gap: 10px;
+
+  min-height: 70px;
+
+  opacity: .45;
+}
+
+
+.timeline-item.active {
+
+  opacity: 1;
+}
+
+
+.timeline-icon {
+
+  position: relative;
+
+  z-index: 2;
+
+  width: 32px;
+
+  height: 32px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    #eef1ef;
+
+  color:
+    #9aa09e;
+
+  border:
+    3px solid white;
+
+  font-size: 10px;
+}
+
+
+.timeline-item.active
+.timeline-icon {
+
+  background:
+    var(--green);
+
+  color: white;
+
+  box-shadow:
+    0 3px 10px
+    rgba(0,168,107,.2);
+}
+
+
+.timeline-content {
+
+  padding-top: 2px;
+}
+
+
+.timeline-content strong {
+
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 9px;
+}
+
+
+.timeline-content span {
+
+  display: block;
+
+  color:
+    #999;
+
+  font-size: 7px;
+
+  line-height: 1.4;
+}
+
+
+.timeline-content small {
+
+  display: block;
+
+  margin-top: 5px;
+
+  color:
+    var(--green-dark);
+
+  font-size: 6px;
+}
+
+
+/* SCHEDULE */
+
+.schedule-box {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 8px;
+}
+
+
+.schedule-box > div {
+
+  padding: 10px;
+
+  border-radius: 9px;
+
+  background:
+    var(--green-light);
+}
+
+
+.schedule-box span {
+
+  display: block;
+
+  margin-bottom: 4px;
+
+  color:
+    #888;
+
+  font-size: 7px;
+}
+
+
+.schedule-box strong {
+
+  display: block;
+
+  color:
+    var(--green-dark);
+
+  font-size: 9px;
+}
+
+
+/* ADDRESS */
+
+.address-box {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  padding: 11px;
+
+  border-radius: 9px;
+
+  background:
+    #f8faf9;
+}
+
+
+.address-box i {
+
+  margin-top: 1px;
+
+  color:
+    var(--green);
+
+  font-size: 11px;
+}
+
+
+.address-box span {
+
+  color:
+    #666;
+
+  font-size: 8px;
+
+  line-height: 1.5;
+}
+
+
+/* TOTAL */
+
+.total-box {
+
+  margin:
+    9px 13px;
+
+  padding:
+    15px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-radius: 13px;
+
+  background:
+    var(--green);
+
+  color: white;
+
+  box-shadow:
+    0 5px 15px
+    rgba(0,168,107,.18);
+}
+
+
+.total-box span {
+
+  font-size: 9px;
+}
+
+
+.total-box strong {
+
+  font-size: 15px;
+}
+
+
+/* ACTION */
+
+.tracking-actions {
+
+  margin:
+    10px 13px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.tracking-actions button {
+
+  width: 100%;
+
+  height: 43px;
+
+  border-radius: 9px;
+
+  font-size: 9px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+.whatsapp-button {
+
+  border: none;
+
+  background:
+    var(--green);
+
+  color: white;
+}
+
+
+.invoice-button {
+
+  border:
+    1px solid #dfe4e2;
+
+  background: white;
+
+  color: #555;
+}
+
+
+/* DESKTOP */
+
+@media (min-width: 601px) {
+
+  body {
+
+    max-width: 600px;
+
+    margin: auto;
+
+  }
+
+}

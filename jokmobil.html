@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Cuci Jok Mobil - Shae Cleaners</title>
+
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="jokmobil.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="car-header">
+
+  <button
+    class="header-btn"
+    onclick="goBack()"
+    aria-label="Kembali"
+  >
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+  </button>
+
+
+  <div class="header-title">
+
+    <strong>
+      Cuci Jok Mobil
+    </strong>
+
+    <span>
+      Shae Cleaners
+    </span>
+
+  </div>
+
+
+  <button
+    class="header-btn"
+    onclick="shareCar()"
+    aria-label="Bagikan"
+  >
+
+    <i class="fa-solid fa-share-nodes"></i>
+
+  </button>
+
+</header>
+
+
+
+<main class="car-container">
+
+
+  <!-- HERO -->
+
+  <section class="car-hero">
+
+    <div class="hero-image">
+
+      <img
+        src="assets/jokmobil.jpg"
+        alt="Cuci Jok Mobil Shae Cleaners"
+        onerror="this.src='https://via.placeholder.com/800x500?text=Cuci+Jok+Mobil'"
+      >
+
+
+      <div class="hero-badge">
+
+        <i class="fa-solid fa-star"></i>
+
+        Layanan Populer
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-content">
+
+      <h1>
+        Cuci Jok Mobil Profesional
+      </h1>
+
+      <p>
+        Bersihkan jok dan interior mobil agar
+        kembali bersih, segar dan nyaman.
+      </p>
+
+
+      <div class="hero-info">
+
+        <span>
+          <i class="fa-solid fa-shield-halved"></i>
+          Profesional
+        </span>
+
+        <span>
+          <i class="fa-solid fa-car"></i>
+          Interior Mobil
+        </span>
+
+        <span>
+          <i class="fa-solid fa-spray-can-sparkles"></i>
+          Deep Cleaning
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- PROMO -->
+
+  <section class="promo-box">
+
+    <div class="promo-icon">
+
+      <i class="fa-solid fa-percent"></i>
+
+    </div>
+
+
+    <div class="promo-text">
+
+      <strong>
+        Paket Cuci Jok Mobil
+      </strong>
+
+      <span>
+        Pilih paket sesuai jumlah baris dan kebutuhan interior.
+      </span>
+
+    </div>
+
+
+    <i class="fa-solid fa-chevron-right"></i>
+
+  </section>
+
+
+
+  <!-- PACKAGE -->
+
+  <section class="service-section">
+
+    <div class="section-heading">
+
+      <h2>
+        Pilih Paket
+      </h2>
+
+      <span>
+        Harga mulai dari Rp250.000
+      </span>
+
+    </div>
+
+
+    <div
+      id="carList"
+      class="car-list"
+    ></div>
+
+  </section>
+
+
+
+  <!-- INFO -->
+
+  <section class="info-card">
+
+    <div class="info-title">
+
+      <i class="fa-solid fa-circle-info"></i>
+
+      <strong>
+        Informasi Layanan
+      </strong>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Pilih paket berdasarkan jumlah baris jok mobil.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Paket interior mencakup pembersihan bagian interior sesuai paket.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Pengerjaan dilakukan menggunakan peralatan cleaning profesional.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Teknisi datang ke lokasi customer.
+      </span>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- BOTTOM -->
+
+<div class="order-bar">
+
+  <div class="selected-info">
+
+    <span>
+      Pilihan
+    </span>
+
+    <strong id="selectedName">
+      Belum dipilih
+    </strong>
+
+  </div>
+
+
+  <div class="selected-price">
+
+    <span>
+      Harga
+    </span>
+
+    <strong id="selectedPrice">
+      Rp0
+    </strong>
+
+  </div>
+
+
+  <button
+    id="orderButton"
+    class="order-button"
+    onclick="orderCar()"
+    disabled
+  >
+
+    Pesan Sekarang
+    <i class="fa-solid fa-arrow-right"></i>
+  </button>
+</div>
+<script src="jokmobil.js"></script>
+
+</body>
+
+</html>

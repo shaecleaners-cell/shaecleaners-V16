@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Akun - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="akun.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<div class="account-page">
+
+
+  <!-- HEADER -->
+
+  <header class="account-header">
+
+    <button
+      class="header-button"
+      onclick="goHome()"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+    </button>
+
+
+    <strong>
+      Akun
+    </strong>
+
+
+    <button
+      class="header-button"
+      onclick="openSettings()"
+    >
+
+      <i class="fa-solid fa-gear"></i>
+
+    </button>
+
+  </header>
+
+
+
+  <!-- PROFILE -->
+
+  <section class="profile-card">
+
+    <div class="profile-avatar">
+
+      <span id="avatarLetter">
+        S
+      </span>
+
+    </div>
+
+
+    <div class="profile-info">
+
+      <strong id="userName">
+        Tamu
+      </strong>
+
+
+      <span id="userPhone">
+        Silakan login untuk menggunakan akun
+      </span>
+
+    </div>
+
+
+    <button
+      id="profileAction"
+      class="profile-action"
+      onclick="profileAction()"
+    >
+
+      Login
+
+    </button>
+
+  </section>
+
+
+
+  <!-- QUICK MENU -->
+
+  <section class="quick-menu">
+
+
+    <button
+      onclick="openOrders()"
+      class="quick-item"
+    >
+
+      <div class="quick-icon">
+
+        <i class="fa-solid fa-receipt"></i>
+
+      </div>
+
+      <span>
+        Pesanan
+      </span>
+
+    </button>
+
+
+
+    <button
+      onclick="openTracking()"
+      class="quick-item"
+    >
+
+      <div class="quick-icon">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+      </div>
+
+      <span>
+        Tracking
+      </span>
+
+    </button>
+
+
+
+    <button
+      onclick="openAddress()"
+      class="quick-item"
+    >
+
+      <div class="quick-icon">
+
+        <i class="fa-solid fa-house"></i>
+
+      </div>
+
+      <span>
+        Alamat
+      </span>
+
+    </button>
+
+
+
+    <button
+      onclick="openFavorite()"
+      class="quick-item"
+    >
+
+      <div class="quick-icon">
+
+        <i class="fa-regular fa-heart"></i>
+
+      </div>
+
+      <span>
+        Favorit
+      </span>
+
+    </button>
+
+
+  </section>
+
+
+
+  <!-- MENU -->
+
+  <section class="menu-card">
+
+
+    <div class="menu-title">
+      Akun Saya
+    </div>
+
+
+    <button
+      class="menu-item"
+      onclick="editProfile()"
+    >
+
+      <div class="menu-icon">
+
+        <i class="fa-solid fa-user-pen"></i>
+
+      </div>
+
+
+      <div class="menu-text">
+
+        <strong>
+          Data Profil
+        </strong>
+
+        <span>
+          Nama dan nomor WhatsApp
+        </span>
+
+      </div>
+
+
+      <i class="fa-solid fa-chevron-right arrow"></i>
+
+    </button>
+
+
+
+    <button
+      class="menu-item"
+      onclick="openAddress()"
+    >
+
+      <div class="menu-icon">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+      </div>
+
+
+      <div class="menu-text">
+
+        <strong>
+          Alamat Saya
+        </strong>
+
+        <span>
+          Kelola alamat cleaning
+        </span>
+
+      </div>
+
+
+      <i class="fa-solid fa-chevron-right arrow"></i>
+
+    </button>
+
+
+
+    <button
+      class="menu-item"
+      onclick="openNotifications()"
+    >
+
+      <div class="menu-icon">
+
+        <i class="fa-regular fa-bell"></i>
+
+      </div>
+
+
+      <div class="menu-text">
+
+        <strong>
+          Notifikasi
+        </strong>
+
+        <span>
+          Informasi dan promo
+        </span>
+
+      </div>
+
+
+      <i class="fa-solid fa-chevron-right arrow"></i>
+
+    </button>
+
+
+
+    <button
+      class="menu-item"
+      onclick="openSettings()"
+    >
+
+      <div class="menu-icon">
+
+        <i class="fa-solid fa-gear"></i>
+
+      </div>
+
+
+      <div class="menu-text">
+
+        <strong>
+          Pengaturan
+        </strong>
+
+        <span>
+          Pengaturan aplikasi
+        </span>
+
+      </div>
+
+
+      <i class="fa-solid fa-chevron-right arrow"></i>
+
+    </button>
+
+
+  </section>
+
+
+
+  <!-- HELP -->
+
+  <section class="menu-card">
+
+
+    <div class="menu-title">
+      Bantuan
+    </div>
+
+
+    <button
+      class="menu-item"
+      onclick="contactHelp()"
+    >
+
+      <div class="menu-icon">
+
+        <i class="fa-regular fa-circle-question"></i>
+
+      </div>
+
+
+      <div class="menu-text">
+
+        <strong>
+          Pusat Bantuan
+        </strong>
+
+        <span>
+          Butuh bantuan?
+        </span>
+
+      </div>
+
+
+      <i class="fa-solid fa-chevron-right arrow"></i>
+
+    </button>
+
+
+
+    <button
+      class="menu-item"
+      onclick="contactHelp()"
+    >
+
+      <div class="menu-icon">
+
+        <i class="fa-brands fa-whatsapp"></i>
+
+      </div>
+
+
+      <div class="menu-text">
+
+        <strong>
+          Hubungi Shae Cleaners
+        </strong>
+
+        <span>
+          Chat melalui WhatsApp
+        </span>
+
+      </div>
+
+
+      <i class="fa-solid fa-chevron-right arrow"></i>
+
+    </button>
+
+
+  </section>
+
+
+
+  <!-- LOGOUT -->
+
+  <button
+    id="logoutButton"
+    class="logout-button"
+    onclick="logoutUser()"
+  >
+
+    <i class="fa-solid fa-right-from-bracket"></i>
+
+    Keluar
+
+  </button>
+
+
+
+  <footer>
+    © 2026 Shae Cleaners
+  </footer>
+
+
+</div>
+
+
+
+<script src="akun.js"></script>
+
+</body>
+
+</html>

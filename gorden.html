@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Cuci Gorden - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="gorden.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<header class="curtain-header">
+
+  <button
+    class="header-btn"
+    onclick="goBack()"
+  >
+    <i class="fa-solid fa-arrow-left"></i>
+  </button>
+
+
+  <div class="header-title">
+
+    <strong>Cuci Gorden</strong>
+
+    <span>Shae Cleaners</span>
+
+  </div>
+
+
+  <button
+    class="header-btn"
+    onclick="shareCurtain()"
+  >
+    <i class="fa-solid fa-share-nodes"></i>
+  </button>
+
+</header>
+
+
+
+<main class="curtain-container">
+
+
+  <!-- HERO -->
+
+  <section class="curtain-hero">
+
+    <div class="hero-image">
+
+      <img
+        src="assets/gorden.jpg"
+        alt="Cuci Gorden Shae Cleaners"
+        onerror="this.src='https://via.placeholder.com/800x500?text=Cuci+Gorden'"
+      >
+
+
+      <div class="hero-badge">
+
+        <i class="fa-solid fa-star"></i>
+
+        Layanan Populer
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-content">
+
+      <h1>
+        Cuci Gorden Profesional
+      </h1>
+
+      <p>
+        Bersihkan gorden dari debu, noda dan bau
+        agar ruangan kembali bersih dan segar.
+      </p>
+
+
+      <div class="hero-info">
+
+        <span>
+          <i class="fa-solid fa-shield-halved"></i>
+          Profesional
+        </span>
+
+        <span>
+          <i class="fa-solid fa-spray-can-sparkles"></i>
+          Deep Cleaning
+        </span>
+
+        <span>
+          <i class="fa-solid fa-house"></i>
+          Datang ke Lokasi
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- PRICE -->
+
+  <section class="price-card">
+
+    <div class="price-icon">
+
+      <i class="fa-solid fa-tags"></i>
+
+    </div>
+
+
+    <div>
+
+      <strong>
+        Harga Cuci Gorden
+      </strong>
+
+      <span>
+        Rp20.000 / m²
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- CALCULATOR -->
+
+  <section class="calculator-card">
+
+    <div class="card-title">
+
+      <i class="fa-solid fa-ruler-combined"></i>
+
+      <div>
+
+        <strong>
+          Hitung Luas Gorden
+        </strong>
+
+        <span>
+          Masukkan panjang dan tinggi gorden
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="measure-grid">
+
+
+      <div class="measure-input">
+
+        <label for="width">
+          Lebar
+        </label>
+
+        <div class="input-wrap">
+
+          <input
+            type="number"
+            id="width"
+            min="0.1"
+            step="0.1"
+            placeholder="0"
+          >
+
+          <span>m</span>
+
+        </div>
+
+      </div>
+
+
+      <div class="multiply">
+        ×
+      </div>
+
+
+      <div class="measure-input">
+
+        <label for="height">
+          Tinggi
+        </label>
+
+        <div class="input-wrap">
+
+          <input
+            type="number"
+            id="height"
+            min="0.1"
+            step="0.1"
+            placeholder="0"
+          >
+
+          <span>m</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="result-row">
+
+      <span>
+        Luas gorden
+      </span>
+
+      <strong id="areaResult">
+        0 m²
+      </strong>
+
+    </div>
+
+
+    <div class="result-row total-row">
+
+      <span>
+        Estimasi harga
+      </span>
+
+      <strong id="priceResult">
+        Rp0
+      </strong>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- QTY -->
+
+  <section class="qty-card">
+
+    <div>
+
+      <strong>
+        Jumlah gorden
+      </strong>
+
+      <span>
+        Jika memiliki beberapa gorden, masukkan jumlahnya.
+      </span>
+
+    </div>
+
+
+    <div class="qty-control">
+
+      <button
+        type="button"
+        onclick="changeQty(-1)"
+      >
+        −
+      </button>
+
+
+      <strong id="qty">
+        1
+      </strong>
+
+
+      <button
+        type="button"
+        onclick="changeQty(1)"
+      >
+        +
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- INFO -->
+
+  <section class="info-card">
+
+    <div class="info-title">
+
+      <i class="fa-solid fa-circle-info"></i>
+
+      <strong>
+        Informasi Layanan
+      </strong>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Harga dasar Rp20.000/m².
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Luas dihitung dari lebar × tinggi gorden.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Jumlah gorden dapat disesuaikan.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Estimasi akhir dapat disesuaikan setelah pengecekan teknisi.
+      </span>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- BOTTOM -->
+
+<div class="order-bar">
+
+  <div class="selected-info">
+
+    <span>
+      Total
+    </span>
+
+    <strong id="selectedArea">
+      0 m²
+    </strong>
+
+  </div>
+
+
+  <div class="selected-price">
+
+    <span>
+      Harga
+    </span>
+
+    <strong id="selectedPrice">
+      Rp0
+    </strong>
+
+  </div>
+
+
+  <button
+    id="orderButton"
+    class="order-button"
+    onclick="orderCurtain()"
+    disabled
+  >
+
+    Pesan Sekarang
+
+    <i class="fa-solid fa-arrow-right"></i>
+
+  </button>
+
+</div>
+
+
+
+<script src="gorden.js"></script>
+
+</body>
+
+</html>

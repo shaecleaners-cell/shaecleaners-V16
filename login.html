@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Login - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="login.css"
+  >
+</head>
+
+
+<body>
+
+  <div class="login-page">
+
+    <div class="login-top">
+
+      <button
+        class="back-button"
+        onclick="goHome()"
+      >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          <i class="fa-solid fa-sparkles"></i>
+        </div>
+
+        <strong>Shae Cleaners</strong>
+
+        <span>
+          Cleaning Service Profesional
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <main class="login-card">
+
+      <h1>
+        Selamat Datang 👋
+      </h1>
+
+      <p class="subtitle">
+        Login untuk melanjutkan pesanan Anda.
+      </p>
+
+
+      <form
+        id="loginForm"
+        onsubmit="loginUser(event)"
+      >
+
+        <div class="input-group">
+
+          <label>
+            Nomor WhatsApp
+          </label>
+
+          <div class="input-box">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <input
+              type="tel"
+              id="phone"
+              placeholder="08xxxxxxxxxx"
+              autocomplete="tel"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Password
+          </label>
+
+          <div class="input-box">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Masukkan password"
+              autocomplete="current-password"
+              required
+            >
+
+            <button
+              type="button"
+              class="eye-button"
+              onclick="togglePassword()"
+            >
+              <i
+                id="eyeIcon"
+                class="fa-solid fa-eye"
+              ></i>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="loginError"
+          class="error-message"
+        ></div>
+
+
+        <button
+          type="submit"
+          class="login-button"
+        >
+
+          Login
+
+          <i class="fa-solid fa-arrow-right"></i>
+
+        </button>
+
+      </form>
+
+
+      <div class="divider">
+
+        <span>
+          atau
+        </span>
+
+      </div>
+
+
+      <button
+        class="register-button"
+        onclick="goRegister()"
+      >
+
+        <i class="fa-solid fa-user-plus"></i>
+
+        Buat Akun Baru
+
+      </button>
+
+
+      <p class="guest-text">
+
+        Ingin melihat layanan terlebih dahulu?
+
+        <button onclick="goHome()">
+          Kembali ke Beranda
+        </button>
+
+      </p>
+
+    </main>
+
+
+    <footer>
+      © 2026 Shae Cleaners
+    </footer>
+
+  </div>
+
+
+  <script src="login.js"></script>
+
+</body>
+
+</html>

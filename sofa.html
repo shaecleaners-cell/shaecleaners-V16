@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Cuci Sofa - Shae Cleaners</title>
+
+
+  <!-- FONT AWESOME -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="sofa.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- =================================================
+     HEADER
+================================================= -->
+
+<header class="sofa-header">
+
+  <button
+    class="header-btn"
+    onclick="goBack()"
+  >
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+  </button>
+
+
+  <div class="header-title">
+
+    <strong>
+      Cuci Sofa
+    </strong>
+
+    <span>
+      Shae Cleaners
+    </span>
+
+  </div>
+
+
+  <button
+    class="header-btn"
+    onclick="shareSofa()"
+  >
+
+    <i class="fa-solid fa-share-nodes"></i>
+
+  </button>
+
+</header>
+
+
+
+<!-- =================================================
+     MAIN
+================================================= -->
+
+<main class="sofa-container">
+
+
+  <!-- =================================================
+       HERO
+  ================================================= -->
+
+  <section class="sofa-hero">
+
+    <div class="hero-image">
+
+      <img
+        src="assets/sofa.jpg"
+        alt="Cuci Sofa Shae Cleaners"
+        onerror="this.src='https://via.placeholder.com/800x500?text=Cuci+Sofa'"
+      >
+
+
+      <div class="hero-badge">
+
+        <i class="fa-solid fa-star"></i>
+
+        Layanan Populer
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-content">
+
+      <h1>
+        Cuci Sofa Profesional
+      </h1>
+
+      <p>
+        Sofa bersih, wangi dan nyaman kembali
+        bersama Shae Cleaners.
+      </p>
+
+
+      <div class="hero-info">
+
+        <span>
+          <i class="fa-solid fa-shield-check"></i>
+          Profesional
+        </span>
+
+        <span>
+          <i class="fa-solid fa-spray-can-sparkles"></i>
+          Deep Cleaning
+        </span>
+
+        <span>
+          <i class="fa-solid fa-star"></i>
+          Berkualitas
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =================================================
+       PROMO
+  ================================================= -->
+
+  <section class="promo-box">
+
+    <div class="promo-icon">
+
+      <i class="fa-solid fa-percent"></i>
+
+    </div>
+
+
+    <div class="promo-text">
+
+      <strong>
+        Promo Cuci Sofa
+      </strong>
+
+      <span>
+        Dapatkan harga spesial untuk pemesanan
+        sofa.
+      </span>
+
+    </div>
+
+    <i class="fa-solid fa-chevron-right"></i>
+
+  </section>
+
+
+
+  <!-- =================================================
+       SERVICE
+  ================================================= -->
+
+  <section class="service-section">
+
+    <div class="section-heading">
+
+      <div>
+
+        <h2>
+          Pilih Jenis Sofa
+        </h2>
+
+        <span>
+          Harga mulai dari Rp50.000
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div
+      id="sofaList"
+      class="sofa-list"
+    ></div>
+
+  </section>
+
+
+
+  <!-- =================================================
+       INFORMATION
+  ================================================= -->
+
+  <section class="info-card">
+
+    <div class="info-title">
+
+      <i class="fa-solid fa-circle-info"></i>
+
+      <strong>
+        Informasi Layanan
+      </strong>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Pembersihan menggunakan mesin profesional.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Menggunakan chemical yang aman untuk sofa.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Harga dihitung berdasarkan jenis sofa.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Teknisi datang ke lokasi customer.
+      </span>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =================================================
+     BOTTOM ORDER BAR
+================================================= -->
+
+<div class="order-bar">
+
+  <div class="selected-info">
+
+    <span>
+      Pilihan
+    </span>
+
+    <strong id="selectedName">
+      Belum dipilih
+    </strong>
+
+  </div>
+
+
+  <div class="selected-price">
+
+    <span>
+      Mulai
+    </span>
+    <strong id="selectedPrice">
+      Rp0
+    </strong>
+  </div>
+  <button
+    id="orderButton"
+    class="order-button"
+    onclick="orderSofa()"
+    disabled
+  >
+    Pesan Sekarang
+    <i class="fa-solid fa-arrow-right"></i>
+  </button>
+</div>
+<!-- =================================================
+     JAVASCRIPT
+================================================= -->
+<script src="sofa.js"></script>
+</body>
+</html>

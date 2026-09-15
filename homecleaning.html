@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Home Cleaning - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="homecleaning.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="cleaning-header">
+
+  <button
+    class="header-btn"
+    onclick="goBack()"
+    aria-label="Kembali"
+  >
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+  </button>
+
+
+  <div class="header-title">
+
+    <strong>
+      Home Cleaning
+    </strong>
+
+    <span>
+      Shae Cleaners
+    </span>
+
+  </div>
+
+
+  <button
+    class="header-btn"
+    onclick="shareCleaning()"
+    aria-label="Bagikan"
+  >
+
+    <i class="fa-solid fa-share-nodes"></i>
+
+  </button>
+
+</header>
+
+
+
+<main class="cleaning-container">
+
+
+  <!-- HERO -->
+
+  <section class="cleaning-hero">
+
+    <div class="hero-image">
+
+      <img
+        src="assets/homecleaning.jpg"
+        alt="Home Cleaning Shae Cleaners"
+        onerror="this.src='https://via.placeholder.com/800x500?text=Home+Cleaning'"
+      >
+
+
+      <div class="hero-badge">
+
+        <i class="fa-solid fa-star"></i>
+
+        Layanan Populer
+
+      </div>
+
+    </div>
+
+
+    <div class="hero-content">
+
+      <h1>
+        Home Cleaning Profesional
+      </h1>
+
+      <p>
+        Rumah lebih bersih dan nyaman dengan
+        tenaga cleaning profesional dari Shae Cleaners.
+      </p>
+
+
+      <div class="hero-info">
+
+        <span>
+          <i class="fa-solid fa-shield-halved"></i>
+          Profesional
+        </span>
+
+        <span>
+          <i class="fa-solid fa-sparkles"></i>
+          Higienis
+        </span>
+
+        <span>
+          <i class="fa-solid fa-house"></i>
+          Datang ke Lokasi
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SERVICE -->
+
+  <section class="service-section">
+
+    <div class="section-heading">
+
+      <h2>
+        Pilih Paket Cleaning
+      </h2>
+
+      <span>
+        Pilih paket sesuai kebutuhan rumah Anda
+      </span>
+
+    </div>
+
+
+    <div
+      id="cleaningList"
+      class="cleaning-list"
+    ></div>
+
+  </section>
+
+
+
+  <!-- QUANTITY -->
+
+  <section class="quantity-card">
+
+    <div class="quantity-info">
+
+      <strong>
+        Jumlah Paket
+      </strong>
+
+      <span>
+        Pilih jumlah paket cleaning yang diperlukan.
+      </span>
+
+    </div>
+
+
+    <div class="quantity-control">
+
+      <button
+        type="button"
+        onclick="changeQty(-1)"
+      >
+        −
+      </button>
+
+
+      <strong id="qty">
+        1
+      </strong>
+
+
+      <button
+        type="button"
+        onclick="changeQty(1)"
+      >
+        +
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- CATATAN -->
+
+  <section class="note-card">
+
+    <div class="note-title">
+
+      <i class="fa-solid fa-pen"></i>
+
+      <strong>
+        Catatan Tambahan
+      </strong>
+
+    </div>
+
+
+    <textarea
+      id="note"
+      placeholder="Contoh: rumah 2 lantai, fokus kamar dan ruang tamu..."
+      maxlength="300"
+    ></textarea>
+
+
+    <div class="note-count">
+
+      <span>
+        Catatan untuk teknisi
+      </span>
+
+      <span id="noteCount">
+        0/300
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- INFO -->
+
+  <section class="info-card">
+
+    <div class="info-title">
+
+      <i class="fa-solid fa-circle-info"></i>
+
+      <strong>
+        Informasi Layanan
+      </strong>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Cleaning dilakukan oleh tenaga profesional.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Peralatan dan chemical disesuaikan dengan kebutuhan.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Teknisi datang langsung ke lokasi customer.
+      </span>
+
+    </div>
+
+
+    <div class="info-item">
+
+      <i class="fa-solid fa-check"></i>
+
+      <span>
+        Estimasi dapat disesuaikan berdasarkan kondisi dan luas area.
+      </span>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- BOTTOM ORDER -->
+
+<div class="order-bar">
+
+  <div class="selected-info">
+
+    <span>
+      Paket
+    </span>
+
+    <strong id="selectedName">
+      Belum dipilih
+    </strong>
+
+  </div>
+
+
+  <div class="selected-price">
+
+    <span>
+      Total
+    </span>
+
+    <strong id="selectedPrice">
+      Rp0
+    </strong>
+
+  </div>
+
+
+  <button
+    id="orderButton"
+    class="order-button"
+    onclick="orderCleaning()"
+    disabled
+  >
+
+    Pesan Sekarang
+
+    <i class="fa-solid fa-arrow-right"></i>
+
+  </button>
+
+</div>
+
+
+
+<script src="homecleaning.js"></script>
+
+</body>
+
+</html>

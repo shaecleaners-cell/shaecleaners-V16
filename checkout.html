@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Checkout - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="checkout.css"
+  >
+
+</head>
+
+<body>
+
+
+<div class="checkout-page">
+
+
+  <!-- HEADER -->
+
+  <header class="checkout-header">
+
+    <button
+      onclick="goBack()"
+      class="back-button"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+    </button>
+
+
+    <strong>
+      Checkout
+    </strong>
+
+
+    <div class="header-space"></div>
+
+  </header>
+
+
+
+  <main class="checkout-content">
+
+
+    <!-- ALAMAT -->
+
+    <section class="checkout-card">
+
+      <div class="card-title">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        <strong>
+          Alamat Pengerjaan
+        </strong>
+
+      </div>
+
+
+      <div
+        id="checkoutAddress"
+        class="checkout-address"
+      >
+
+        Memuat alamat...
+
+      </div>
+
+
+      <button
+        onclick="changeAddress()"
+        class="change-button"
+      >
+
+        Ganti Alamat
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+      </button>
+
+    </section>
+
+
+
+    <!-- LAYANAN -->
+
+    <section class="checkout-card">
+
+      <div class="card-title">
+
+        <i class="fa-solid fa-broom"></i>
+
+        <strong>
+          Detail Layanan
+        </strong>
+
+      </div>
+
+
+      <div
+        id="serviceDetail"
+        class="service-detail"
+      >
+        Memuat layanan...
+      </div>
+
+    </section>
+
+
+
+    <!-- JADWAL -->
+
+    <section class="checkout-card">
+
+      <div class="card-title">
+
+        <i class="fa-regular fa-calendar"></i>
+
+        <strong>
+          Jadwal Cleaning
+        </strong>
+
+      </div>
+
+
+      <div class="schedule-grid">
+
+        <div class="input-box">
+
+          <label>
+            Tanggal
+          </label>
+
+          <input
+            type="date"
+            id="checkoutDate"
+          >
+
+        </div>
+
+
+        <div class="input-box">
+
+          <label>
+            Jam
+          </label>
+
+          <input
+            type="time"
+            id="checkoutTime"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- PEMBAYARAN -->
+
+    <section class="checkout-card">
+
+      <div class="card-title">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <strong>
+          Metode Pembayaran
+        </strong>
+
+      </div>
+
+
+      <label class="payment-option">
+
+        <input
+          type="radio"
+          name="payment"
+          value="cash"
+          checked
+        >
+
+        <span class="payment-icon">
+          <i class="fa-solid fa-money-bill-wave"></i>
+        </span>
+
+
+        <span class="payment-info">
+
+          <strong>
+            Bayar di Tempat
+          </strong>
+
+          <small>
+            Pembayaran setelah layanan selesai
+          </small>
+
+        </span>
+
+
+        <i class="fa-solid fa-check check-icon"></i>
+
+      </label>
+
+
+
+      <label class="payment-option">
+
+        <input
+          type="radio"
+          name="payment"
+          value="qris"
+        >
+
+        <span class="payment-icon">
+          <i class="fa-solid fa-qrcode"></i>
+        </span>
+
+
+        <span class="payment-info">
+
+          <strong>
+            QRIS
+          </strong>
+
+          <small>
+            Scan QRIS untuk pembayaran
+          </small>
+
+        </span>
+
+
+        <i class="fa-solid fa-check check-icon"></i>
+
+      </label>
+
+
+
+      <label class="payment-option">
+
+        <input
+          type="radio"
+          name="payment"
+          value="transfer"
+        >
+
+        <span class="payment-icon">
+          <i class="fa-solid fa-building-columns"></i>
+        </span>
+
+
+        <span class="payment-info">
+
+          <strong>
+            Transfer Bank
+          </strong>
+
+          <small>
+            Transfer ke rekening Shae Cleaners
+          </small>
+
+        </span>
+
+
+        <i class="fa-solid fa-check check-icon"></i>
+
+      </label>
+
+    </section>
+
+
+
+    <!-- RINGKASAN -->
+
+    <section class="checkout-card summary-card">
+
+      <div class="card-title">
+
+        <i class="fa-solid fa-receipt"></i>
+
+        <strong>
+          Ringkasan Pembayaran
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Subtotal
+        </span>
+
+        <strong id="subtotal">
+          Rp0
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Diskon
+        </span>
+
+        <strong
+          id="discount"
+          class="discount"
+        >
+          - Rp0
+        </strong>
+
+      </div>
+
+
+      <div class="summary-divider"></div>
+
+
+      <div class="total-row">
+
+        <span>
+          Total
+        </span>
+
+        <strong id="grandTotal">
+          Rp0
+        </strong>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- BOTTOM -->
+
+  <div class="checkout-bottom">
+
+    <div class="bottom-price">
+
+      <span>
+        Total
+      </span>
+
+      <strong id="bottomTotal">
+        Rp0
+      </strong>
+
+    </div>
+
+
+    <button
+      onclick="createOrder()"
+      class="order-button"
+    >
+
+      Buat Pesanan
+
+      <i class="fa-solid fa-arrow-right"></i>
+
+    </button>
+
+  </div>
+
+
+</div>
+
+
+<script src="checkout.js"></script>
+
+</body>
+</html>

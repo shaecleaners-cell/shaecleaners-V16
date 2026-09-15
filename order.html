@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Pemesanan - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="order.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="order-header">
+
+  <button
+    class="back-button"
+    onclick="goBack()"
+  >
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+  </button>
+
+
+  <div class="header-title">
+
+    <strong>
+      Pemesanan
+    </strong>
+
+    <span>
+      Shae Cleaners
+    </span>
+
+  </div>
+
+
+  <button
+    class="help-button"
+    onclick="showHelp()"
+  >
+
+    <i class="fa-regular fa-circle-question"></i>
+
+  </button>
+
+</header>
+
+
+
+<!-- PROGRESS -->
+
+<section class="progress-wrapper">
+
+  <div class="progress-step active">
+
+    <div class="step-circle">
+      1
+    </div>
+
+    <span>
+      Pesanan
+    </span>
+
+  </div>
+
+
+  <div class="progress-line"></div>
+
+
+  <div class="progress-step">
+
+    <div class="step-circle">
+      2
+    </div>
+
+    <span>
+      Data
+    </span>
+
+  </div>
+
+
+  <div class="progress-line"></div>
+
+
+  <div class="progress-step">
+
+    <div class="step-circle">
+      3
+    </div>
+
+    <span>
+      Jadwal
+    </span>
+
+  </div>
+
+
+  <div class="progress-line"></div>
+
+
+  <div class="progress-step">
+
+    <div class="step-circle">
+      4
+    </div>
+
+    <span>
+      Checkout
+    </span>
+
+  </div>
+
+</section>
+
+
+
+<main class="order-container">
+
+
+  <!-- PESANAN -->
+
+  <section class="order-card">
+
+    <div class="card-heading">
+
+      <div class="heading-icon">
+
+        <i class="fa-solid fa-basket-shopping"></i>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Detail Pesanan
+        </strong>
+
+        <span>
+          Periksa layanan yang Anda pilih
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="serviceBox"
+      class="service-box"
+    >
+
+      <div class="loading">
+        Memuat pesanan...
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- CUSTOMER -->
+
+  <section class="order-card">
+
+    <div class="card-heading">
+
+      <div class="heading-icon">
+
+        <i class="fa-solid fa-user"></i>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Data Customer
+        </strong>
+
+        <span>
+          Data digunakan untuk pemesanan
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+
+      <label for="customerName">
+        Nama Lengkap
+      </label>
+
+      <div class="input-box">
+
+        <i class="fa-regular fa-user"></i>
+
+        <input
+          type="text"
+          id="customerName"
+          placeholder="Masukkan nama lengkap"
+          autocomplete="name"
+        >
+
+      </div>
+
+      <small
+        id="nameError"
+        class="error"
+      ></small>
+
+    </div>
+
+
+
+    <div class="form-group">
+
+      <label for="customerPhone">
+        Nomor WhatsApp
+      </label>
+
+      <div class="input-box">
+
+        <i class="fa-brands fa-whatsapp"></i>
+
+        <input
+          type="tel"
+          id="customerPhone"
+          placeholder="08xxxxxxxxxx"
+          autocomplete="tel"
+        >
+
+      </div>
+
+      <small
+        id="phoneError"
+        class="error"
+      ></small>
+
+    </div>
+
+  </section>
+<!-- ================= ALAMAT PEMESANAN ================= -->
+
+<section class="order-address">
+
+  <div class="section-heading">
+
+    <div>
+      <strong>Alamat Pengerjaan</strong>
+      <span>Pilih lokasi layanan cleaning</span>
+    </div>
+
+    <button
+      type="button"
+      onclick="openAddressPage()"
+    >
+      Kelola
+    </button>
+
+  </div>
+
+
+  <div
+    id="selectedAddress"
+    class="selected-address"
+  >
+
+    <div class="address-loading">
+      Memuat alamat...
+    </div>
+
+  </div>
+
+
+  <button
+    type="button"
+    class="choose-address"
+    onclick="chooseAddress()"
+  >
+
+    <i class="fa-solid fa-location-dot"></i>
+
+    Pilih Alamat Lain
+
+    <i class="fa-solid fa-chevron-right"></i>
+
+  </button>
+
+</section>
+
+
+  <!-- ALAMAT -->
+
+  <section class="order-card">
+
+    <div class="card-heading">
+
+      <div class="heading-icon">
+
+        <i class="fa-solid fa-location-dot"></i>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Alamat Layanan
+        </strong>
+
+        <span>
+          Lokasi teknisi datang
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+
+      <label for="customerAddress">
+        Alamat Lengkap
+      </label>
+
+      <textarea
+        id="customerAddress"
+        placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan..."
+      ></textarea>
+
+      <small
+        id="addressError"
+        class="error"
+      ></small>
+
+    </div>
+
+
+
+    <div class="location-button">
+
+      <button
+        type="button"
+        onclick="useCurrentLocation()"
+      >
+
+        <i class="fa-solid fa-location-crosshairs"></i>
+
+        Gunakan Lokasi Saya
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- JADWAL -->
+
+  <section class="order-card">
+
+    <div class="card-heading">
+
+      <div class="heading-icon">
+
+        <i class="fa-regular fa-calendar"></i>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Jadwal Cleaning
+        </strong>
+
+        <span>
+          Tentukan waktu kedatangan teknisi
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="schedule-grid">
+
+      <div class="form-group">
+
+        <label for="orderDate">
+          Tanggal
+        </label>
+
+        <input
+          type="date"
+          id="orderDate"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="orderTime">
+          Jam
+        </label>
+
+        <select id="orderTime">
+
+          <option value="">
+            Pilih jam
+          </option>
+
+          <option value="08:00">
+            08:00
+          </option>
+
+          <option value="09:00">
+            09:00
+          </option>
+
+          <option value="10:00">
+            10:00
+          </option>
+
+          <option value="11:00">
+            11:00
+          </option>
+
+          <option value="13:00">
+            13:00
+          </option>
+
+          <option value="14:00">
+            14:00
+          </option>
+
+          <option value="15:00">
+            15:00
+          </option>
+
+          <option value="16:00">
+            16:00
+          </option>
+
+          <option value="17:00">
+            17:00
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <small
+      id="scheduleError"
+      class="error"
+    ></small>
+
+  </section>
+
+
+
+  <!-- CATATAN -->
+
+  <section class="order-card">
+
+    <div class="card-heading">
+
+      <div class="heading-icon">
+
+        <i class="fa-regular fa-note-sticky"></i>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Catatan
+        </strong>
+
+        <span>
+          Informasi tambahan untuk teknisi
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <textarea
+      id="orderNote"
+      placeholder="Contoh: parkir di depan rumah, fokus sofa ruang tamu..."
+      maxlength="300"
+    ></textarea>
+
+
+    <div class="note-count">
+
+      <span>
+        Catatan
+      </span>
+
+      <span id="noteCount">
+        0/300
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SUMMARY -->
+
+  <section class="summary-card">
+
+    <div class="summary-title">
+
+      <strong>
+        Ringkasan Pembayaran
+      </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+      <span>
+        Harga layanan
+      </span>
+
+      <strong id="summaryPrice">
+        Rp0
+      </strong>
+
+    </div>
+
+
+    <div class="summary-row">
+
+      <span>
+        Biaya layanan
+      </span>
+
+      <strong id="serviceFee">
+        Rp0
+      </strong>
+
+    </div>
+
+
+    <div class="summary-divider"></div>
+
+
+    <div class="summary-total">
+
+      <span>
+        Total
+      </span>
+
+      <strong id="summaryTotal">
+        Rp0
+      </strong>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+<!-- BOTTOM -->
+
+<div class="bottom-order">
+
+  <div class="bottom-total">
+
+    <span>
+      Total Pesanan
+    </span>
+
+    <strong id="bottomTotal">
+      Rp0
+    </strong>
+
+  </div>
+
+
+  <button
+    type="button"
+    onclick="continueCheckout()"
+    class="continue-button"
+  >
+    Lanjut
+    <i class="fa-solid fa-arrow-right"></i>
+  </button>
+</div>
+<script src="order.js"></script>
+
+</body>
+
+</html>

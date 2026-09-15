@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#00A86B"
+  >
+
+  <title>Tracking Pesanan - Shae Cleaners</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="tracking.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<header class="tracking-header">
+
+  <button
+    class="header-button"
+    onclick="goBack()"
+  >
+
+    <i class="fa-solid fa-arrow-left"></i>
+
+  </button>
+
+
+  <div class="header-title">
+
+    <strong>
+      Pesanan Saya
+    </strong>
+
+    <span>
+      Shae Cleaners
+    </span>
+
+  </div>
+
+
+  <button
+    class="header-button"
+    onclick="refreshTracking()"
+  >
+
+    <i class="fa-solid fa-rotate-right"></i>
+
+  </button>
+
+</header>
+
+
+
+<main class="tracking-container">
+
+
+  <!-- INVOICE -->
+
+  <section class="invoice-mini">
+
+    <div>
+
+      <span>
+        Nomor Invoice
+      </span>
+
+      <strong id="invoiceNumber">
+        -
+      </strong>
+
+    </div>
+
+
+    <div class="status-mini">
+
+      <span>
+        Status
+      </span>
+
+      <strong id="currentStatus">
+        Menunggu Konfirmasi
+      </strong>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SERVICE -->
+
+  <section class="tracking-card">
+
+    <div class="card-title">
+
+      <i class="fa-solid fa-broom"></i>
+
+      <strong>
+        Detail Pesanan
+      </strong>
+
+    </div>
+
+
+    <div class="service-box">
+
+      <div class="service-icon">
+
+        <i class="fa-solid fa-sparkles"></i>
+
+      </div>
+
+
+      <div class="service-info">
+
+        <strong id="serviceName">
+          Cleaning Service
+        </strong>
+
+        <span id="serviceItem">
+          -
+        </span>
+
+        <small id="serviceQty">
+          Qty: 1
+        </small>
+
+      </div>
+
+
+      <strong
+        id="serviceTotal"
+        class="service-total"
+      >
+        Rp0
+      </strong>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- TIMELINE -->
+
+  <section class="tracking-card">
+
+    <div class="card-title">
+
+      <i class="fa-solid fa-route"></i>
+
+      <strong>
+        Status Pesanan
+      </strong>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+      <!-- 1 -->
+
+      <div
+        class="timeline-item active"
+        data-step="1"
+      >
+
+        <div class="timeline-icon">
+
+          <i class="fa-solid fa-clipboard-check"></i>
+
+        </div>
+
+
+        <div class="timeline-content">
+
+          <strong>
+            Pesanan Dibuat
+          </strong>
+
+          <span>
+            Pesanan berhasil dibuat.
+          </span>
+
+          <small id="timeStep1">
+            -
+          </small>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 2 -->
+
+      <div
+        class="timeline-item"
+        data-step="2"
+      >
+
+        <div class="timeline-icon">
+
+          <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+
+        <div class="timeline-content">
+
+          <strong>
+            Pesanan Dikonfirmasi
+          </strong>
+
+          <span>
+            Shae Cleaners mengonfirmasi pesanan.
+          </span>
+
+          <small id="timeStep2">
+            -
+          </small>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 3 -->
+
+      <div
+        class="timeline-item"
+        data-step="3"
+      >
+
+        <div class="timeline-icon">
+
+          <i class="fa-solid fa-motorcycle"></i>
+
+        </div>
+
+
+        <div class="timeline-content">
+
+          <strong>
+            Teknisi Berangkat
+          </strong>
+
+          <span>
+            Teknisi sedang menuju lokasi.
+          </span>
+
+          <small id="timeStep3">
+            -
+          </small>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 4 -->
+
+      <div
+        class="timeline-item"
+        data-step="4"
+      >
+
+        <div class="timeline-icon">
+
+          <i class="fa-solid fa-soap"></i>
+
+        </div>
+
+
+        <div class="timeline-content">
+
+          <strong>
+            Sedang Cleaning
+          </strong>
+
+          <span>
+            Proses cleaning sedang berlangsung.
+          </span>
+
+          <small id="timeStep4">
+            -
+          </small>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- 5 -->
+
+      <div
+        class="timeline-item"
+        data-step="5"
+      >
+
+        <div class="timeline-icon">
+
+          <i class="fa-solid fa-star"></i>
+
+        </div>
+
+
+        <div class="timeline-content">
+
+          <strong>
+            Pesanan Selesai
+          </strong>
+
+          <span>
+            Layanan telah selesai.
+          </span>
+
+          <small id="timeStep5">
+            -
+          </small>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SCHEDULE -->
+
+  <section class="tracking-card">
+
+    <div class="card-title">
+
+      <i class="fa-regular fa-calendar"></i>
+
+      <strong>
+        Jadwal
+      </strong>
+
+    </div>
+
+
+    <div class="schedule-box">
+
+      <div>
+
+        <span>
+          Tanggal
+        </span>
+
+        <strong id="orderDate">
+          -
+        </strong>
+
+      </div>
+
+
+      <div>
+
+        <span>
+          Jam
+        </span>
+
+        <strong id="orderTime">
+          -
+        </strong>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- CUSTOMER -->
+
+  <section class="tracking-card">
+
+    <div class="card-title">
+
+      <i class="fa-solid fa-location-dot"></i>
+
+      <strong>
+        Lokasi Cleaning
+      </strong>
+
+    </div>
+
+
+    <div class="address-box">
+
+      <i class="fa-solid fa-house"></i>
+
+      <span id="customerAddress">
+        -
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- TOTAL -->
+
+  <section class="total-box">
+
+    <span>
+      Total Pesanan
+    </span>
+
+    <strong id="grandTotal">
+      Rp0
+    </strong>
+
+  </section>
+
+
+
+  <!-- ACTION -->
+
+  <section class="tracking-actions">
+
+    <button
+      onclick="contactWhatsApp()"
+      class="whatsapp-button"
+    >
+
+      <i class="fa-brands fa-whatsapp"></i>
+
+      Hubungi Shae Cleaners
+
+    </button>
+
+
+    <button
+      onclick="viewInvoice()"
+      class="invoice-button"
+    >
+
+      <i class="fa-solid fa-file-invoice"></i>
+
+      Lihat Invoice
+
+    </button>
+
+  </section>
+
+
+</main>
+
+
+
+<script src="tracking.js"></script>
+
+</body>
+
+</html>
