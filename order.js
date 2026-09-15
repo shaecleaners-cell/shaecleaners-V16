@@ -1310,3 +1310,589 @@ document.addEventListener(
 
   }
 );
+/* ==========================================
+   PILIH LAYANAN DI HALAMAN ORDER
+   TIDAK KEMBALI KE INDEX
+========================================== */
+
+function openServicePicker() {
+
+  // Hapus popup lama jika ada
+  const oldPicker =
+    document.getElementById("servicePicker");
+
+  if (oldPicker) {
+    oldPicker.remove();
+  }
+
+
+  const picker =
+    document.createElement("div");
+
+  picker.id =
+    "servicePicker";
+
+
+  picker.innerHTML = `
+
+    <div class="service-picker-overlay">
+
+      <div class="service-picker">
+
+        <div class="service-picker-header">
+
+          <div>
+            <strong>Pilih Layanan</strong>
+            <span>Pilih layanan cleaning</span>
+          </div>
+
+          <button
+            type="button"
+            onclick="closeServicePicker()"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+        </div>
+
+
+        <div class="service-picker-list">
+
+          <button
+            type="button"
+            onclick="selectOrderService('Sofa')"
+          >
+            <i class="fa-solid fa-couch"></i>
+            <span>Sofa</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('Kasur / Springbed')"
+          >
+            <i class="fa-solid fa-bed"></i>
+            <span>Kasur / Springbed</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('Jok Mobil & Interior')"
+          >
+            <i class="fa-solid fa-car"></i>
+            <span>Jok Mobil & Interior</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('Kursi')"
+          >
+            <i class="fa-solid fa-chair"></i>
+            <span>Kursi</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('Karpet')"
+          >
+            <i class="fa-solid fa-rug"></i>
+            <span>Karpet</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('Gorden')"
+          >
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Gorden</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('AC')"
+          >
+            <i class="fa-solid fa-snowflake"></i>
+            <span>AC</span>
+          </button>
+
+
+          <button
+            type="button"
+            onclick="selectOrderService('Home Cleaning')"
+          >
+            <i class="fa-solid fa-house"></i>
+            <span>Home Cleaning</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(picker);
+
+}
+
+
+/* ==========================================
+   TUTUP PILIHAN LAYANAN
+========================================== */
+
+function closeServicePicker() {
+
+  const picker =
+    document.getElementById(
+      "servicePicker"
+    );
+
+  if (picker) {
+    picker.remove();
+  }
+
+}
+
+
+/* ==========================================
+   PILIH LAYANAN
+========================================== */
+
+function selectOrderService(
+  serviceName
+) {
+
+  /*
+    Untuk sementara kita buat
+    pilihan paket sesuai layanan.
+  */
+
+  closeServicePicker();
+
+  openPackagePicker(
+    serviceName
+  );
+
+}
+
+
+/* ==========================================
+   PILIH PAKET
+========================================== */
+
+function openPackagePicker(
+  serviceName
+) {
+
+  const packages =
+    getOrderPackages(
+      serviceName
+    );
+
+
+  const picker =
+    document.createElement("div");
+
+  picker.id =
+    "servicePicker";
+
+
+  picker.innerHTML = `
+
+    <div class="service-picker-overlay">
+
+      <div class="service-picker">
+
+        <div class="service-picker-header">
+
+          <div>
+
+            <strong>
+              ${serviceName}
+            </strong>
+
+            <span>
+              Pilih paket layanan
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            onclick="closeServicePicker()"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+        </div>
+
+
+        <div class="package-list">
+
+          ${packages.map(
+            (item, index) => `
+
+              <button
+                type="button"
+                class="package-item"
+                onclick="chooseOrderPackage(
+                  '${serviceName}',
+                  ${index}
+                )"
+              >
+
+                <div>
+
+                  <strong>
+                    ${item.name}
+                  </strong>
+
+                  <span>
+                    ${formatRupiah(item.price)}
+                  </span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+              </button>
+
+          `).join("")}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    picker
+  );
+
+}
+
+
+/* ==========================================
+   DATA PAKET
+========================================== */
+
+function getOrderPackages(
+  serviceName
+) {
+
+  const data = {
+
+    "Sofa": [
+
+      {
+        name: "Sofa Standard",
+        price: 50000
+      },
+
+      {
+        name: "Sofa Lepasan",
+        price: 65000
+      },
+
+      {
+        name: "Sofa Besar",
+        price: 75000
+      },
+
+      {
+        name: "Sofa L Standard",
+        price: 250000
+      },
+
+      {
+        name: "Sofa L Large",
+        price: 300000
+      },
+
+      {
+        name: "Sofa U Standard",
+        price: 300000
+      },
+
+      {
+        name: "Sofa U Large",
+        price: 350000
+      },
+
+      {
+        name: "Sofa Ukir/Kayu",
+        price: 50000
+      },
+
+      {
+        name: "Sofa Recliner",
+        price: 85000
+      }
+
+    ],
+
+
+    "Kasur / Springbed": [
+
+      {
+        name: "Mini Single",
+        price: 150000
+      },
+
+      {
+        name: "Single",
+        price: 170000
+      },
+
+      {
+        name: "Queen",
+        price: 260000
+      },
+
+      {
+        name: "King",
+        price: 280000
+      },
+
+      {
+        name: "Super King",
+        price: 300000
+      }
+
+    ],
+
+
+    "Jok Mobil & Interior": [
+
+      {
+        name: "Jok Saja 2 Baris",
+        price: 250000
+      },
+
+      {
+        name: "Interior 2 Baris",
+        price: 400000
+      },
+
+      {
+        name: "Jok Saja 3 Baris",
+        price: 350000
+      },
+
+      {
+        name: "Interior 3 Baris",
+        price: 500000
+      }
+
+    ],
+
+
+    "Kursi": [
+
+      {
+        name: "Kursi Makan Small",
+        price: 30000
+      },
+
+      {
+        name: "Kursi Makan Sedang",
+        price: 35000
+      },
+
+      {
+        name: "Kursi Makan Besar",
+        price: 40000
+      },
+
+      {
+        name: "Kursi Kantor Small",
+        price: 30000
+      },
+
+      {
+        name: "Kursi Kantor Sedang",
+        price: 35000
+      },
+
+      {
+        name: "Kursi Kantor Besar",
+        price: 40000
+      }
+
+    ],
+
+
+    "Karpet": [
+
+      {
+        name: "Cuci Karpet",
+        price: 13000
+      }
+
+    ],
+
+
+    "Gorden": [
+
+      {
+        name: "Cuci Gorden",
+        price: 50000
+      }
+
+    ],
+
+
+    "AC": [
+
+      {
+        name: "Cuci AC",
+        price: 75000
+      }
+
+    ],
+
+
+    "Home Cleaning": [
+
+      {
+        name: "Home Cleaning",
+        price: 150000
+      }
+
+    ]
+
+  };
+
+
+  return data[serviceName] || [];
+
+}
+
+
+/* ==========================================
+   SIMPAN PAKET
+========================================== */
+
+function chooseOrderPackage(
+  serviceName,
+  index
+) {
+
+  const packages =
+    getOrderPackages(
+      serviceName
+    );
+
+
+  const selected =
+    packages[index];
+
+
+  if (!selected) {
+    return;
+  }
+
+
+  /*
+    Sesuaikan nama layanan
+    dengan sistem lama Anda.
+  */
+
+  let layanan =
+    serviceName;
+
+
+  if (
+    serviceName ===
+    "Kasur / Springbed"
+  ) {
+
+    layanan =
+      "Kasur";
+
+  }
+
+
+  if (
+    serviceName ===
+    "Jok Mobil & Interior"
+  ) {
+
+    layanan =
+      "Jok Mobil";
+
+  }
+
+
+  const orderData = {
+
+    layanan:
+      layanan,
+
+    item:
+      selected.name,
+
+    qty:
+      1,
+
+    total:
+      selected.price
+
+  };
+
+
+  /*
+    Simpan menggunakan key
+    yang memang dipakai order.js Anda.
+  */
+
+  localStorage.setItem(
+
+    "shaeSelectedService",
+
+    JSON.stringify(
+      orderData
+    )
+
+  );
+
+
+  selectedService =
+    orderData;
+
+
+  closeServicePicker();
+
+
+  /*
+    Tampilkan langsung
+    di Detail Pesanan
+  */
+
+  renderService();
+
+  updateSummary();
+
+
+  /*
+    Scroll kembali ke
+    bagian Detail Pesanan
+  */
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
