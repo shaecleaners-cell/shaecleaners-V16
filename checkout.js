@@ -4,7 +4,6 @@
    TANPA FIREBASE
 ========================================== */
 
-
 /* ================= FORMAT RUPIAH ================= */
 
 function rupiah(number) {
@@ -14,7 +13,6 @@ function rupiah(number) {
       .toLocaleString("id-ID");
 
 }
-
 
 /* ================= USER ================= */
 
@@ -64,13 +62,44 @@ function getOrderData() {
 
   try {
 
-    return JSON.parse(
+    // Data utama dari order.html
+    const currentOrder =
+      localStorage.getItem(
+        "shaeCurrentOrder"
+      );
+
+    if (currentOrder) {
+
+      return JSON.parse(
+        currentOrder
+      );
+
+    }
+
+
+    // Cadangan untuk data versi lama
+    const oldOrder =
       localStorage.getItem(
         "shaeOrderData"
-      )
-    );
+      );
 
-  } catch {
+    if (oldOrder) {
+
+      return JSON.parse(
+        oldOrder
+      );
+
+    }
+
+
+    return null;
+
+  } catch (error) {
+
+    console.error(
+      "Gagal membaca data pesanan:",
+      error
+    );
 
     return null;
 
@@ -321,7 +350,6 @@ function calculateTotal() {
 
 
 /* ================= DATE ================= */
-
 function setMinDate() {
 
   const date =
@@ -329,27 +357,27 @@ function setMinDate() {
       "checkoutDate"
     );
 
+  const time =
+    document.getElementById(
+      "checkoutTime"
+    );
+
 
   if (!date) {
-
     return;
-
   }
 
 
   const today =
     new Date();
 
-
   const year =
     today.getFullYear();
-
 
   const month =
     String(
       today.getMonth() + 1
     ).padStart(2, "0");
-
 
   const day =
     String(
@@ -357,17 +385,62 @@ function setMinDate() {
     ).padStart(2, "0");
 
 
-  date.min =
+  const todayString =
     `${year}-${month}-${day}`;
 
 
+  date.min =
+    todayString;
+
+
   /*
-    Default besok.
+    Ambil pesanan dari order.html
+  */
+
+  const order =
+    getOrderData();
+
+
+  if (order) {
+
+    /*
+      Tanggal dari halaman order
+    */
+
+    if (order.tanggal) {
+
+      date.value =
+        order.tanggal;
+
+    }
+
+
+    /*
+      Jam dari halaman order
+    */
+
+    if (
+      time &&
+      order.jam
+    ) {
+
+      time.value =
+        order.jam;
+
+    }
+
+    return;
+
+  }
+
+
+  /*
+    Jika tidak ada order,
+    gunakan besok sebagai default.
   */
 
   const tomorrow =
     new Date(today);
-
 
   tomorrow.setDate(
     today.getDate() + 1
@@ -377,12 +450,10 @@ function setMinDate() {
   const ty =
     tomorrow.getFullYear();
 
-
   const tm =
     String(
       tomorrow.getMonth() + 1
     ).padStart(2, "0");
-
 
   const td =
     String(
@@ -394,8 +465,6 @@ function setMinDate() {
     `${ty}-${tm}-${td}`;
 
 }
-
-
 /* ================= CREATE ORDER ================= */
 
 function createOrder() {
