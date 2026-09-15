@@ -717,10 +717,7 @@ function goBack() {
 /* ================= HOME ================= */
 
 function goHome() {
-
-  window.location.href =
-    "index.html";
-
+  openServicePicker();
 }
 
 
