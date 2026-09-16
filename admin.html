@@ -1,218 +1,157 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<meta
-  name="theme-color"
-  content="#00A86B"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Shae Cleaners</title>
 
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
->
+<style>
+*{
+  box-sizing:border-box;
+}
 
-<link
-  rel="stylesheet"
-  href="admin.css"
->
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+}
 
+.header{
+  background:#16a34a;
+  color:white;
+  padding:18px;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:500px;
+  margin:30px auto;
+  padding:15px;
+}
+
+.login-box{
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.1);
+}
+
+.login-box h2{
+  margin-top:0;
+  text-align:center;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  border:0;
+  padding:14px;
+  margin-top:10px;
+  border-radius:8px;
+  background:#16a34a;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+#adminPanel{
+  display:none;
+}
+
+.order-card{
+  background:white;
+  padding:15px;
+  margin:12px 0;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.logout{
+  background:#dc2626;
+}
+
+.confirm{
+  background:#16a34a;
+}
+
+.error{
+  color:#dc2626;
+  margin-top:10px;
+  text-align:center;
+}
+</style>
 </head>
-
 
 <body>
 
+<div class="header">
+  SHAE CLEANERS - ADMIN
+</div>
 
-<header class="admin-header">
+<div class="container">
 
-  <div>
+  <!-- LOGIN -->
+  <div id="loginBox" class="login-box">
 
-    <strong>
-      Shae Cleaners
-    </strong>
+    <h2>Login Admin</h2>
 
-    <span>
-      Admin Panel
-    </span>
-
-  </div>
-
-
-  <button
-    onclick="logoutAdmin()"
-    title="Keluar"
-  >
-
-    <i class="fa-solid fa-right-from-bracket"></i>
-
-  </button>
-
-</header>
-
-
-<!-- LOGIN -->
-
-<section
-  id="loginBox"
-  class="login-box"
->
-
-  <div class="login-icon">
-
-    <i class="fa-solid fa-user-shield"></i>
-
-  </div>
-
-  <h2>
-    Login Admin
-  </h2>
-
-  <p>
-    Masuk untuk mengelola pesanan.
-  </p>
-
-
-  <input
-    type="email"
-    id="adminEmail"
-    placeholder="Email admin"
-  >
-
-
-  <input
-    type="password"
-    id="adminPassword"
-    placeholder="Password"
-  >
-
-
-  <button
-    onclick="loginAdmin()"
-    class="primary-button"
-  >
-
-    <i class="fa-solid fa-right-to-bracket"></i>
-
-    Login Admin
-
-  </button>
-
-
-  <div
-    id="loginError"
-    class="login-error"
-  ></div>
-
-</section>
-
-
-<!-- DASHBOARD -->
-
-<main
-  id="adminDashboard"
-  class="admin-dashboard"
-  style="display:none;"
->
-
-
-  <div class="dashboard-title">
-
-    <div>
-
-      <strong>
-        Pesanan Masuk
-      </strong>
-
-      <span>
-        Kelola pesanan customer Shae Cleaners
-      </span>
-
-    </div>
-
-
-    <button
-      onclick="loadOrders()"
-      class="refresh-button"
+    <input
+      type="email"
+      id="adminEmail"
+      placeholder="Email admin"
+      autocomplete="email"
     >
 
-      <i class="fa-solid fa-rotate"></i>
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
 
+    <button id="loginBtn" type="button">
+      LOGIN ADMIN
     </button>
 
-  </div>
-
-
-  <!-- STAT -->
-
-  <div class="stats">
-
-    <div class="stat-card">
-
-      <span>
-        Pesanan Baru
-      </span>
-
-      <strong id="newCount">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <span>
-        Dikonfirmasi
-      </span>
-
-      <strong id="confirmedCount">
-        0
-      </strong>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <span>
-        Selesai
-      </span>
-
-      <strong id="doneCount">
-        0
-      </strong>
-
-    </div>
+    <div id="loginError" class="error"></div>
 
   </div>
 
 
-  <div
-    id="orderList"
-    class="order-list"
-  >
+  <!-- ADMIN PANEL -->
+  <div id="adminPanel">
 
-    <div class="empty">
+    <button id="logoutBtn" class="logout" type="button">
+      LOGOUT
+    </button>
+
+    <h2>Pesanan Masuk</h2>
+
+    <div id="ordersList">
       Memuat pesanan...
     </div>
 
   </div>
 
-</main>
+</div>
 
 
-<script src="admin.js"></script>
+<script type="module" src="./js/admin.js"></script>
 
 </body>
-
 </html>
