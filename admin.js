@@ -1,949 +1,304 @@
 import {
-
   auth,
   db,
-
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-
+  onAuthStateChanged,
   collection,
   query,
   orderBy,
   onSnapshot,
-
   doc,
   updateDoc
-
 } from "./firebase.js";
 
-import {
-  getFirestore,
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  doc,
-  updateDoc,
-  addDoc,
-  serverTimestamp
-} from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
-/* ==========================================
-   KONFIGURASI ADMIN
-========================================== */
 
-/*
-   GANTI dengan email akun admin Firebase Anda.
-*/
+const loginBox = document.getElementById("loginBox");
+const adminPanel = document.getElementById("adminPanel");
 
-const ADMIN_EMAIL =
-  "shaecleaners@gmail.com";
-  "admin@shaecleaners.shop";
+const emailInput = document.getElementById("adminEmail");
+const passwordInput = document.getElementById("adminPassword");
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+const loginError = document.getElementById("loginError");
+const ordersList = document.getElementById("ordersList");
 
 
-let unsubscribeOrders = null;
-
-
-/* ==========================================
-   ELEMENT
-========================================== */
-
-const loginBox =
-  document.getElementById(
-    "loginBox"
-  );
-
-
-const dashboard =
-  document.getElementById(
-    "adminDashboard"
-  );
-
-
-const orderList =
-  document.getElementById(
-    "orderList"
-  );
-
-
-/* ==========================================
+/* ===============================
    LOGIN
-========================================== */
+================================ */
 
-window.loginAdmin =
-  async function () {
+loginBtn.addEventListener("click", async () => {
 
-    const email =
-      document.getElementById(
-        "adminEmail"
-      ).value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
 
+  loginError.textContent = "";
 
-    const password =
-      document.getElementById(
-        "adminPassword"
-      ).value;
+  if (!email || !password) {
+    loginError.textContent =
+      "Email dan password wajib diisi.";
+    return;
+  }
 
+  loginBtn.disabled = true;
+  loginBtn.textContent = "LOGIN...";
 
-    const errorBox =
-      document.getElementById(
-        "loginError"
-      );
+  try {
 
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    errorBox.textContent = "";
+  } catch (error) {
 
+    console.error(error);
 
-    if (!email || !password) {
+    loginError.textContent =
+      "Login gagal: " + error.message;
 
-      errorBox.textContent =
-        "Email dan password wajib diisi.";
+    loginBtn.disabled = false;
+    loginBtn.textContent = "LOGIN ADMIN";
+  }
 
-      return;
-
-    }
-
-
-    if (
-      email.toLowerCase() !==
-      ADMIN_EMAIL.toLowerCase()
-    ) {
-
-      errorBox.textContent =
-        "Akun ini bukan akun admin.";
-
-      return;
-
-    }
+});
 
 
-    try {
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-      errorBox.textContent =
-        "Login gagal. Periksa email dan password.";
-
-    }
-
-  };
-
-
-/* ==========================================
+/* ===============================
    LOGOUT
-========================================== */
+================================ */
 
-window.logoutAdmin =
-  async function () {
+logoutBtn.addEventListener("click", async () => {
 
-    if (
-      confirm(
-        "Keluar dari Admin?"
-      )
-    ) {
+  try {
 
-      await signOut(auth);
+    await signOut(auth);
 
-    }
+  } catch (error) {
 
-  };
+    console.error(error);
 
+  }
 
-/* ==========================================
-   AUTH
-========================================== */
-
-onAuthStateChanged(
-  auth,
-  user => {
-
-    if (!user) {
-
-      loginBox.style.display =
-        "block";
-
-      dashboard.style.display =
-        "none";
-
-      if (unsubscribeOrders) {
-
-        unsubscribeOrders();
-
-        unsubscribeOrders =
-          null;
-
-      }
-
-      return;
-
-    }
+});
 
 
-    if (
-      user.email.toLowerCase() !==
-      ADMIN_EMAIL.toLowerCase()
-    ) {
+/* ===============================
+   AUTH STATUS
+================================ */
 
-      alert(
-        "Akun ini bukan akun admin."
-      );
+onAuthStateChanged(auth, (user) => {
 
-      signOut(auth);
+  if (user) {
 
-      return;
-
-    }
-
-
-    loginBox.style.display =
-      "none";
-
-    dashboard.style.display =
-      "block";
-
+    loginBox.style.display = "none";
+    adminPanel.style.display = "block";
 
     loadOrders();
 
+  } else {
+
+    loginBox.style.display = "block";
+    adminPanel.style.display = "none";
+
   }
-);
+
+});
 
 
-/* ==========================================
+/* ===============================
    LOAD ORDERS
-========================================== */
+================================ */
 
-window.loadOrders =
-  function () {
+function loadOrders() {
 
-    if (unsubscribeOrders) {
+  const q = query(
+    collection(db, "orders"),
+    orderBy("createdAt", "desc")
+  );
 
-      unsubscribeOrders();
+  onSnapshot(q, (snapshot) => {
 
+    if (snapshot.empty) {
+
+      ordersList.innerHTML =
+        "<p>Belum ada pesanan.</p>";
+
+      return;
     }
 
 
-    const ordersQuery =
-      query(
-
-        collection(
-          db,
-          "orders"
-        ),
-
-        orderBy(
-          "createdAt",
-          "desc"
-        )
-
-      );
+    ordersList.innerHTML = "";
 
 
-    unsubscribeOrders =
-      onSnapshot(
+    snapshot.forEach((item) => {
 
-        ordersQuery,
+      const order = item.data();
 
-        snapshot => {
+      const card =
+        document.createElement("div");
 
-          const orders =
-            snapshot.docs.map(
-              item => ({
-
-                id:
-                  item.id,
-
-                ...item.data()
-
-              })
-            );
+      card.className = "order-card";
 
 
-          renderOrders(
-            orders
-          );
+      card.innerHTML = `
+        <b>Invoice:</b>
+        ${order.invoice || "-"}
+        <br><br>
 
-        },
+        <b>Nama:</b>
+        ${order.customerName || "-"}
+        <br>
 
-        error => {
+        <b>WhatsApp:</b>
+        ${order.customerPhone || "-"}
+        <br><br>
 
-          console.error(
-            error
-          );
+        <b>Layanan:</b>
+        ${order.service || "-"}
+        <br>
 
-          orderList.innerHTML = `
+        <b>Paket:</b>
+        ${order.package || "-"}
+        <br>
 
-            <div class="empty">
+        <b>Jumlah:</b>
+        ${order.qty || 1}
+        <br><br>
 
-              Gagal memuat pesanan.
+        <b>Total:</b>
+        Rp${Number(order.total || 0)
+          .toLocaleString("id-ID")}
+        <br><br>
 
-              <br><br>
+        <b>Alamat:</b>
+        ${getAddress(order.address)}
+        <br><br>
 
-              Periksa Firestore Rules.
+        <b>Tanggal:</b>
+        ${order.date || "-"}
+        <br>
 
-            </div>
+        <b>Jam:</b>
+        ${order.time || "-"}
+        <br><br>
 
-          `;
+        <b>Status:</b>
+        <span>${order.status || "-"}</span>
 
-        }
-
-      );
-
-  };
-
-
-/* ==========================================
-   RENDER
-========================================== */
-
-function renderOrders(
-  orders
-) {
-
-  let newCount = 0;
-
-  let confirmedCount = 0;
-
-  let doneCount = 0;
+        <div class="action"></div>
+      `;
 
 
-  orders.forEach(
-    order => {
+      const action =
+        card.querySelector(".action");
+
 
       if (
         order.status ===
         "Menunggu Konfirmasi"
       ) {
 
-        newCount++;
+        const button =
+          document.createElement("button");
+
+        button.className = "confirm";
+
+        button.textContent =
+          "KONFIRMASI PESANAN";
+
+        button.addEventListener(
+          "click",
+          () => confirmOrder(item.id)
+        );
+
+        action.appendChild(button);
+
+      } else {
+
+        const info =
+          document.createElement("p");
+
+        info.innerHTML =
+          "✅ Pesanan sudah dikonfirmasi.";
+
+        action.appendChild(info);
 
       }
 
 
-      if (
-        order.status ===
-        "Dikonfirmasi"
-      ) {
+      ordersList.appendChild(card);
 
-        confirmedCount++;
+    });
 
+  }, (error) => {
+
+    console.error(error);
+
+    ordersList.innerHTML =
+      `<p class="error">
+        Gagal mengambil pesanan:<br>
+        ${error.message}
+      </p>`;
+
+  });
+
+}
+
+
+/* ===============================
+   CONFIRM ORDER
+================================ */
+
+async function confirmOrder(orderId) {
+
+  try {
+
+    await updateDoc(
+      doc(db, "orders", orderId),
+      {
+        status: "Pesanan Dikonfirmasi"
       }
+    );
 
+    alert("Pesanan berhasil dikonfirmasi.");
 
-      if (
-        order.status ===
-        "Pesanan Selesai"
-      ) {
+  } catch (error) {
 
-        doneCount++;
+    console.error(error);
 
-      }
-
-    }
-  );
-
-
-  document.getElementById(
-    "newCount"
-  ).textContent =
-    newCount;
-
-
-  document.getElementById(
-    "confirmedCount"
-  ).textContent =
-    confirmedCount;
-
-
-  document.getElementById(
-    "doneCount"
-  ).textContent =
-    doneCount;
-
-
-  if (!orders.length) {
-
-    orderList.innerHTML = `
-
-      <div class="empty">
-
-        <i class="fa-solid fa-inbox"></i>
-
-        <br><br>
-
-        Belum ada pesanan.
-
-      </div>
-
-    `;
-
-    return;
+    alert(
+      "Gagal mengkonfirmasi pesanan:\n" +
+      error.message
+    );
 
   }
 
-
-  orderList.innerHTML =
-    orders.map(
-      order =>
-        createOrderCard(
-          order
-        )
-    ).join("");
-
 }
 
 
-/* ==========================================
-   ORDER CARD
-========================================== */
-
-function createOrderCard(
-  order
-) {
-
-  const phone =
-    String(
-      order.customerPhone ||
-      ""
-    ).replace(
-      /\D/g,
-      ""
-    );
-
-
-  const whatsapp =
-    phone
-      ? `https://wa.me/${phone}`
-      : "#";
-
-
-  return `
-
-    <div class="order-card">
-
-      <div class="order-top">
-
-        <div>
-
-          <div class="invoice">
-
-            ${escapeHTML(
-              order.invoice
-            )}
-
-          </div>
-
-        </div>
-
-
-        <div class="status">
-
-          ${escapeHTML(
-            order.status ||
-            "Menunggu Konfirmasi"
-          )}
-
-        </div>
-
-      </div>
-
-
-      <div class="service">
-
-        ${escapeHTML(
-          order.layanan ||
-          "Layanan Cleaning"
-        )}
-
-      </div>
-
-
-      <div class="item">
-
-        ${escapeHTML(
-          order.item || "-"
-        )}
-
-        · Qty:
-
-        ${Number(
-          order.qty || 1
-        )}
-
-      </div>
-
-
-      <div class="order-info">
-
-
-        <div class="info">
-
-          <small>
-            CUSTOMER
-          </small>
-
-          <strong>
-
-            ${escapeHTML(
-              order.customerName ||
-              "-"
-            )}
-
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <small>
-            WHATSAPP
-          </small>
-
-          <strong>
-
-            ${escapeHTML(
-              order.customerPhone ||
-              "-"
-            )}
-
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <small>
-            TANGGAL
-          </small>
-
-          <strong>
-
-            ${escapeHTML(
-              order.tanggal ||
-              "-"
-            )}
-
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <small>
-            JAM
-          </small>
-
-          <strong>
-
-            ${escapeHTML(
-              order.jam ||
-              "-"
-            )}
-
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <small>
-            ALAMAT
-          </small>
-
-          <strong>
-
-            ${formatAddress(
-              order.address
-            )}
-
-          </strong>
-
-        </div>
-
-
-        <div class="info">
-
-          <small>
-            PEMBAYARAN
-          </small>
-
-          <strong>
-
-            ${escapeHTML(
-              order.payment ||
-              "-"
-            )}
-
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="total">
-
-        <span>
-          Total
-        </span>
-
-        <strong>
-
-          ${rupiah(
-            order.total
-          )}
-
-        </strong>
-
-      </div>
-
-
-      <div class="order-actions">
-
-
-        ${
-          order.status ===
-          "Menunggu Konfirmasi"
-
-          ? `
-
-            <button
-              class="confirm-button"
-              onclick="confirmOrder('${order.id}')"
-            >
-
-              <i class="fa-solid fa-check"></i>
-
-              Konfirmasi
-
-            </button>
-
-          `
-
-          : ""
-
-        }
-
-
-        ${
-          phone
-
-          ? `
-
-            <a
-              href="${whatsapp}"
-              target="_blank"
-              class="whatsapp-button"
-              style="
-                text-decoration:none;
-                text-align:center;
-              "
-            >
-
-              <i class="fa-brands fa-whatsapp"></i>
-
-              WhatsApp
-
-            </a>
-
-          `
-
-          : ""
-
-        }
-
-
-        ${
-          order.status !==
-          "Pesanan Selesai"
-
-          ? `
-
-            <button
-              class="status-button"
-              onclick="nextStatus('${order.id}', '${escapeAttribute(order.status || "")}')"
-            >
-
-              <i class="fa-solid fa-arrow-right"></i>
-
-              Status Berikutnya
-
-            </button>
-
-          `
-
-          : ""
-
-        }
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ==========================================
-   KONFIRMASI
-========================================== */
-
-window.confirmOrder =
-  async function (
-    orderId
-  ) {
-
-    if (
-      !confirm(
-        "Konfirmasi pesanan ini?"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    try {
-
-      await updateDoc(
-
-        doc(
-          db,
-          "orders",
-          orderId
-        ),
-
-        {
-
-          status:
-            "Dikonfirmasi",
-
-          confirmedAt:
-            new Date().toISOString()
-
-        }
-
-      );
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Gagal mengkonfirmasi pesanan."
-      );
-
-    }
-
-  };
-
-
-/* ==========================================
-   STATUS BERIKUTNYA
-========================================== */
-
-window.nextStatus =
-  async function (
-    orderId,
-    currentStatus
-  ) {
-
-    const statuses = [
-
-      "Menunggu Konfirmasi",
-
-      "Dikonfirmasi",
-
-      "Teknisi Berangkat",
-
-      "Sedang Cleaning",
-
-      "Pesanan Selesai"
-
-    ];
-
-
-    const current =
-      statuses.indexOf(
-        currentStatus
-      );
-
-
-    const next =
-      statuses[
-        current + 1
-      ];
-
-
-    if (!next) {
-
-      return;
-
-    }
-
-
-    try {
-
-      await updateDoc(
-
-        doc(
-          db,
-          "orders",
-          orderId
-        ),
-
-        {
-
-          status:
-            next,
-
-          updatedAt:
-            new Date().toISOString()
-
-        }
-
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Gagal mengubah status."
-      );
-
-    }
-
-  };
-
-
-/* ==========================================
+/* ===============================
    ADDRESS
-========================================== */
+================================ */
 
-function formatAddress(
-  address
-) {
+function getAddress(address) {
 
-  if (!address) {
+  if (!address) return "-";
 
-    return "-";
-
+  if (typeof address === "string") {
+    return address;
   }
 
-
-  if (
-    typeof address ===
-    "string"
-  ) {
-
-    return escapeHTML(
-      address
-    );
-
-  }
-
-
-  return escapeHTML(
-
-    [
-      address.address,
-      address.district,
-      address.city
-
-    ]
-
-      .filter(Boolean)
-
-      .join(", ")
-
-  );
-
-}
-
-
-/* ==========================================
-   RUPIAH
-========================================== */
-
-function rupiah(
-  number
-) {
-
-  return "Rp" +
-    Number(
-      number || 0
-    ).toLocaleString(
-      "id-ID"
-    );
-
-}
-
-
-/* ==========================================
-   ESCAPE
-========================================== */
-
-function escapeHTML(
-  value
-) {
-
-  return String(
-    value || ""
-  )
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(
-  value
-) {
-
-  return String(
-    value || ""
-  )
-    .replace(
-      /'/g,
-      "\\'"
-    );
+  return [
+    address.label,
+    address.address,
+    address.detail
+  ]
+    .filter(Boolean)
+    .join(", ") || "-";
 
 }
