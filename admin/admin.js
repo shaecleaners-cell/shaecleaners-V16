@@ -37,7 +37,7 @@ import {
 */
 
 const ADMIN_EMAIL =
-  "admin@shaecleaners.store";
+  "admin@shaecleaners.shop";
 
 
 let unsubscribeOrders = null;
