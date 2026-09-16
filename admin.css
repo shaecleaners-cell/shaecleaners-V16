@@ -1,0 +1,396 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7f8;
+  color: #222;
+}
+
+
+/* HEADER */
+
+.admin-header {
+  background: #00a86b;
+  color: white;
+  padding: 18px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-header strong {
+  display: block;
+  font-size: 20px;
+}
+
+.admin-header span {
+  font-size: 12px;
+  opacity: .8;
+}
+
+.admin-header button {
+  border: 0;
+  background: rgba(255,255,255,.15);
+  color: white;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  font-size: 17px;
+}
+
+
+/* LOGIN */
+
+.login-box {
+  width: calc(100% - 40px);
+  max-width: 420px;
+
+  margin: 70px auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 5px 25px rgba(0,0,0,.07);
+
+  text-align: center;
+}
+
+.login-icon {
+  width: 65px;
+  height: 65px;
+
+  margin: auto;
+
+  border-radius: 20px;
+
+  background: #e8fff6;
+
+  color: #00a86b;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+}
+
+.login-box h2 {
+  margin-bottom: 5px;
+}
+
+.login-box p {
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.login-box input {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-bottom: 12px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+}
+
+.primary-button {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  background: #00a86b;
+
+  color: white;
+
+  font-weight: bold;
+
+  font-size: 14px;
+}
+
+.login-error {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+
+/* DASHBOARD */
+
+.admin-dashboard {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.dashboard-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.dashboard-title strong {
+  display: block;
+  font-size: 21px;
+}
+
+.dashboard-title span {
+  color: #999;
+  font-size: 12px;
+}
+
+.refresh-button {
+  border: 0;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  color: #00a86b;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+
+/* STATS */
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: white;
+
+  padding: 18px;
+
+  border-radius: 15px;
+}
+
+.stat-card span {
+  display: block;
+
+  color: #999;
+
+  font-size: 12px;
+}
+
+.stat-card strong {
+  display: block;
+
+  color: #00a86b;
+
+  font-size: 25px;
+
+  margin-top: 7px;
+}
+
+
+/* ORDER */
+
+.order-card {
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+  margin-bottom: 15px;
+
+  box-shadow:
+    0 3px 15px rgba(0,0,0,.04);
+}
+
+.order-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+.invoice {
+  font-size: 12px;
+  color: #999;
+}
+
+.status {
+  color: #00a86b;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.service {
+  margin-top: 15px;
+
+  font-size: 18px;
+
+  font-weight: bold;
+}
+
+.item {
+  color: #777;
+
+  font-size: 13px;
+
+  margin-top: 4px;
+}
+
+.order-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.info {
+  background: #f7faf9;
+
+  padding: 12px;
+
+  border-radius: 10px;
+}
+
+.info small {
+  display: block;
+
+  color: #999;
+
+  font-size: 10px;
+}
+
+.info strong {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 13px;
+}
+
+.total {
+  margin-top: 15px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #eee;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-weight: bold;
+}
+
+.total strong {
+  color: #00a86b;
+}
+
+.order-actions {
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 15px;
+}
+
+.order-actions button {
+  flex: 1;
+
+  padding: 12px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  font-weight: bold;
+}
+
+.confirm-button {
+  background: #00a86b;
+  color: white;
+}
+
+.whatsapp-button {
+  background: #e9fff5;
+  color: #008f5a;
+}
+
+.status-button {
+  background: #f1f1f1;
+  color: #555;
+}
+
+.empty {
+  text-align: center;
+
+  background: white;
+
+  padding: 40px;
+
+  border-radius: 18px;
+
+  color: #999;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  .stats {
+    grid-template-columns:
+      1fr 1fr 1fr;
+  }
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  .stat-card strong {
+    font-size: 20px;
+  }
+
+  .order-info {
+    grid-template-columns:
+      1fr;
+  }
+
+}
