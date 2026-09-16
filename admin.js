@@ -37,6 +37,7 @@ import {
 */
 
 const ADMIN_EMAIL =
+  "shaecleaners@gmail.com";
   "admin@shaecleaners.shop";
 
 
