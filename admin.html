@@ -1,114 +1,58 @@
-<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<meta
+  name="theme-color"
+  content="#16a34a"
+>
+
 <title>Admin - Shae Cleaners</title>
 
-<style>
-*{
-  box-sizing:border-box;
-}
+<link
+  rel="stylesheet"
+  href="admin.css"
+>
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3f4f6;
-}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
-.header{
-  background:#16a34a;
-  color:white;
-  padding:18px;
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.container{
-  max-width:500px;
-  margin:30px auto;
-  padding:15px;
-}
-
-.login-box{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 3px 12px rgba(0,0,0,.1);
-}
-
-.login-box h2{
-  margin-top:0;
-  text-align:center;
-}
-
-input{
-  width:100%;
-  padding:13px;
-  margin:8px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:15px;
-}
-
-button{
-  width:100%;
-  border:0;
-  padding:14px;
-  margin-top:10px;
-  border-radius:8px;
-  background:#16a34a;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-button:active{
-  transform:scale(.98);
-}
-
-#adminPanel{
-  display:none;
-}
-
-.order-card{
-  background:white;
-  padding:15px;
-  margin:12px 0;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.logout{
-  background:#dc2626;
-}
-
-.confirm{
-  background:#16a34a;
-}
-
-.error{
-  color:#dc2626;
-  margin-top:10px;
-  text-align:center;
-}
-</style>
 </head>
+
 
 <body>
 
-<div class="header">
-  SHAE CLEANERS - ADMIN
-</div>
 
-<div class="container">
+<div class="admin-app">
 
-  <!-- LOGIN -->
-  <div id="loginBox" class="login-box">
+
+  <!-- =========================
+       LOGIN
+  ========================== -->
+
+  <section id="loginBox" class="login-box">
+
+    <div class="login-icon">
+      <i class="fa-solid fa-shield-halved"></i>
+    </div>
 
     <h2>Login Admin</h2>
+
+    <p>
+      Masuk untuk mengelola pesanan
+      Shae Cleaners.
+    </p>
+
 
     <input
       type="email"
@@ -117,6 +61,7 @@ button:active{
       autocomplete="email"
     >
 
+
     <input
       type="password"
       id="adminPassword"
@@ -124,47 +69,163 @@ button:active{
       autocomplete="current-password"
     >
 
-    <button id="loginBtn" type="button">
+
+    <button
+      id="loginBtn"
+      type="button"
+    >
+
+      <i class="fa-solid fa-right-to-bracket"></i>
+
       LOGIN ADMIN
+
     </button>
 
-    <div id="loginError" class="error"></div>
 
-  </div>
+    <div
+      id="loginError"
+      class="login-error"
+    ></div>
+
+  </section>
 
 
-  <!-- ADMIN PANEL -->
-  <div id="adminPanel">
 
-    <button id="logoutBtn" class="logout" type="button">
-      LOGOUT
-    </button>
+  <!-- =========================
+       DASHBOARD
+  ========================== -->
 
-    <h2>Pesanan Masuk</h2>
+  <section
+    id="adminDashboard"
+    style="display:none;"
+  >
 
-    <div id="ordersList">
-      Memuat pesanan...
+
+    <header>
+
+      <div>
+
+        <h1>
+          Shae <span>Cleaners</span>
+        </h1>
+
+        <p>
+          Panel Admin • Order Cleaning
+        </p>
+
+      </div>
+
+
+      <button
+        id="logoutBtn"
+        type="button"
+        class="admin-badge"
+      >
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        KELUAR
+
+      </button>
+
+    </header>
+
+
+
+    <!-- =========================
+         STATISTIK
+    ========================== -->
+
+    <section class="stats">
+
+      <div>
+        <b id="totalOrders">0</b>
+        <span>Total Order</span>
+      </div>
+
+      <div>
+        <b id="waitingOrders">0</b>
+        <span>Menunggu</span>
+      </div>
+
+      <div>
+        <b id="confirmedOrders">0</b>
+        <span>Dikonfirmasi</span>
+      </div>
+
+      <div>
+        <b id="doneOrders">0</b>
+        <span>Selesai</span>
+      </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         TOOLBAR
+    ========================== -->
+
+    <div class="toolbar">
+
+      <h2>
+        Pesanan Terbaru
+      </h2>
+
+
+      <select id="filterStatus">
+
+        <option value="">
+          Semua Status
+        </option>
+
+        <option value="Menunggu Konfirmasi">
+          Menunggu
+        </option>
+
+        <option value="Pesanan Dikonfirmasi">
+          Dikonfirmasi
+        </option>
+
+        <option value="Diproses">
+          Diproses
+        </option>
+
+        <option value="Selesai">
+          Selesai
+        </option>
+
+      </select>
+
     </div>
-  </div>
+
+
+
+    <!-- =========================
+         ORDER
+    ========================== -->
+
+    <div id="orders">
+
+      <div class="loading">
+        Menghubungkan ke Firebase...
+      </div>
+
+    </div>
+
+
+  </section>
+
+
 </div>
-<script>
-function loginAdmin() {
 
-  alert("TOMBOL LOGIN BERHASIL DIKLIK");
 
-}
 
-function logoutAdmin() {
+<script
+  type="module"
+  src="admin.js"
+></script>
 
-  alert("LOGOUT");
 
-}
-
-function loadOrders() {
-
-  alert("LOAD ORDERS");
-
-}
-</script>
 </body>
 </html>
