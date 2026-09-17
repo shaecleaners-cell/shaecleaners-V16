@@ -1,674 +1,588 @@
-/* ==========================================
+/* =====================================================
    SHAE CLEANERS
    TRACKING PESANAN
-   SIMPLE & STABIL
-   TANPA FIREBASE
-========================================== */
-
-let order = null;
+   FIRESTORE REALTIME
+===================================================== */
 
 
-/* ================= RUPIAH ================= */
+/* ================= KONFIGURASI ================= */
+
+const WA_NUMBER = "6283813138221";
+
+let currentOrder = null;
+let unsubscribeOrder = null;
+
+
+/* ================= FORMAT RUPIAH ================= */
 
 function formatRupiah(value) {
 
-  const number = toNumber(value);
-
-  return "Rp" + number.toLocaleString("id-ID");
-
-}
-
-
-/* ================= KONVERSI ANGKA ================= */
-
-function toNumber(value) {
-
-  if (value === null || value === undefined || value === "") {
-    return 0;
-  }
-
-  if (typeof value === "number") {
-    return value;
-  }
-
-  /*
-    Menangani:
-    300000
-    "300000"
-    "Rp300.000"
-    "300.000"
-  */
-
-  let text = String(value)
-    .replace(/Rp/gi, "")
-    .replace(/\s/g, "")
-    .trim();
-
-  /*
-    Format Indonesia:
-    300.000 -> 300000
-    300,000 -> 300000
-  */
-
-  if (text.includes(".")) {
-    text = text.replace(/\./g, "");
-  }
-
-  if (text.includes(",")) {
-    text = text.replace(/,/g, "");
-  }
-
-  const number = Number(text);
-
-  return Number.isFinite(number)
-    ? number
-    : 0;
-
-}
-
-
-/* ================= AMBIL QTY ================= */
-
-function getQty() {
-
-  const qty =
-    toNumber(
-      order?.qty
-    );
-
-  return qty > 0 ? qty : 1;
-
-}
-
-
-/* ================= AMBIL TOTAL ================= */
-
-function getOrderTotal() {
-
-  const qty = getQty();
-
-
-  /*
-    PRIORITAS 1
-    grandTotal
-  */
-
-  let total =
-    toNumber(
-      order?.grandTotal
-    );
-
-  if (total > 0) {
-    return total;
-  }
-
-
-  /*
-    PRIORITAS 2
-    total
-  */
-
-  total =
-    toNumber(
-      order?.total
-    );
-
-  if (total > 0) {
-    return total;
-  }
-
-
-  /*
-    PRIORITAS 3
-    subtotal
-  */
-
-  total =
-    toNumber(
-      order?.subtotal
-    );
-
-  if (total > 0) {
-    return total;
-  }
-
-
-  /*
-    PRIORITAS 4
-    amount
-  */
-
-  total =
-    toNumber(
-      order?.amount
-    );
-
-  if (total > 0) {
-    return total;
-  }
-
-
-  /*
-    PRIORITAS 5
-    price x qty
-  */
-
-  const price =
-    toNumber(
-      order?.price
-    );
-
-  if (price > 0) {
-    return price * qty;
-  }
-
-
-  /*
-    PRIORITAS 6
-    harga x qty
-  */
-
-  const harga =
-    toNumber(
-      order?.harga
-    );
-
-  if (harga > 0) {
-    return harga * qty;
-  }
-
-
-  return 0;
+  return "Rp" +
+    Number(value || 0)
+      .toLocaleString("id-ID");
 
 }
 
 
 /* ================= LOAD ================= */
 
-function loadTracking() {
-
-  const saved =
-    localStorage.getItem(
-      "shaeLastOrder"
-    );
-
-
-  if (!saved) {
-
-    showNoOrder();
-
-    return;
-
-  }
-
+async function loadTracking() {
 
   try {
 
-    order =
-      JSON.parse(saved);
+    const saved =
+      localStorage.getItem("shaeLastOrder");
+
+    if (!saved) {
+
+      showEmptyOrder(
+        "Belum ada pesanan yang dapat dilacak."
+      );
+
+      return;
+    }
+
+
+    const order = JSON.parse(saved);
+
+    currentOrder = order;
+
+
+    /* Tampilkan data lokal terlebih dahulu */
+
+    showOrder(order);
+
+
+    /* ================= FIREBASE ================= */
+
+    const firebase =
+      await import("./firebase.js");
+
+
+    const {
+      db,
+      doc,
+      onSnapshot
+    } = firebase;
+
+
+    /*
+      firestoreId disimpan saat checkout
+    */
+
+    if (!order.firestoreId) {
+
+      console.warn(
+        "firestoreId belum tersedia."
+      );
+
+      return;
+    }
+
+
+    const orderRef =
+      doc(
+        db,
+        "orders",
+        order.firestoreId
+      );
+
+
+    /* ================= REALTIME ================= */
+
+    unsubscribeOrder =
+      onSnapshot(
+        orderRef,
+
+        snapshot => {
+
+          if (!snapshot.exists()) {
+
+            showEmptyOrder(
+              "Pesanan tidak ditemukan."
+            );
+
+            return;
+          }
+
+
+          const firestoreOrder = {
+
+            ...snapshot.data(),
+
+            firestoreId: snapshot.id
+
+          };
+
+
+          currentOrder = {
+            ...currentOrder,
+            ...firestoreOrder
+          };
+
+
+          /* Simpan status terbaru */
+
+          localStorage.setItem(
+            "shaeLastOrder",
+            JSON.stringify(currentOrder)
+          );
+
+
+          /* Update tampilan */
+
+          showOrder(currentOrder);
+
+        },
+
+        error => {
+
+          console.error(
+            "Tracking Firestore:",
+            error
+          );
+
+        }
+      );
+
 
   } catch (error) {
 
     console.error(
-      "Data pesanan tidak valid:",
+      "Tracking error:",
       error
     );
 
-    order = null;
+    showEmptyOrder(
+      "Gagal memuat pesanan."
+    );
 
   }
-
-
-  if (!order) {
-
-    showNoOrder();
-
-    return;
-
-  }
-
-
-  console.log(
-    "DATA TRACKING:",
-    order
-  );
-
-
-  renderTracking();
 
 }
 
 
-/* ================= RENDER ================= */
+/* ================= TAMPILKAN ORDER ================= */
 
-function renderTracking() {
-
-  const total =
-    getOrderTotal();
+function showOrder(order) {
 
 
-  const qty =
-    getQty();
+  /* Invoice */
+
+  const invoice =
+    document.getElementById(
+      "invoiceNumber"
+    );
+
+  if (invoice) {
+
+    invoice.textContent =
+      order.invoice || "-";
+
+  }
 
 
-  /* INVOICE */
+  /* Status */
 
-  document.getElementById(
-    "invoiceNumber"
-  ).textContent =
-    order.invoice ||
-    order.invoiceNumber ||
-    "-";
-
-
-  /* STATUS */
-
-  document.getElementById(
-    "currentStatus"
-  ).textContent =
+  const status =
     order.status ||
     "Menunggu Konfirmasi";
 
 
-  /* LAYANAN */
-
-  document.getElementById(
-    "serviceName"
-  ).textContent =
-    order.layanan ||
-    order.service ||
-    "Cleaning Service";
-
-
-  /* ITEM / PAKET */
-
-  document.getElementById(
-    "serviceItem"
-  ).textContent =
-    order.item ||
-    order.paket ||
-    order.package ||
-    "-";
-
-
-  /* QTY */
-
-  document.getElementById(
-    "serviceQty"
-  ).textContent =
-    "Qty: " + qty;
-
-
-  /* HARGA DETAIL */
-
-  document.getElementById(
-    "serviceTotal"
-  ).textContent =
-    formatRupiah(total);
-
-
-  /* TANGGAL */
-
-  document.getElementById(
-    "orderDate"
-  ).textContent =
-    formatDate(
-      order.tanggal ||
-      order.date
+  const currentStatus =
+    document.getElementById(
+      "currentStatus"
     );
 
+  if (currentStatus) {
 
-  /* JAM */
-
-  document.getElementById(
-    "orderTime"
-  ).textContent =
-    order.jam ||
-    order.time ||
-    "-";
-
-
-  /* ALAMAT */
-
-  document.getElementById(
-    "customerAddress"
-  ).textContent =
-    order.customer?.address ||
-    order.address ||
-    "-";
-
-
-  /* TOTAL PESANAN */
-
-  document.getElementById(
-    "grandTotal"
-  ).textContent =
-    formatRupiah(total);
-
-
-  updateTimeline();
-
-}
-
-
-/* ================= STATUS ================= */
-
-function getStatusStep(status) {
-
-  switch (status) {
-
-    case "Menunggu Konfirmasi":
-      return 1;
-
-    case "Dikonfirmasi":
-      return 2;
-
-    case "Teknisi Berangkat":
-      return 3;
-
-    case "Sedang Cleaning":
-      return 4;
-
-    case "Selesai":
-      return 5;
-
-    default:
-      return 1;
+    currentStatus.textContent =
+      status;
 
   }
 
+
+  /* Service */
+
+  const serviceName =
+    document.getElementById(
+      "serviceName"
+    );
+
+  if (serviceName) {
+
+    serviceName.textContent =
+      order.service ||
+      "Cleaning Service";
+
+  }
+
+
+  /* Paket */
+
+  const serviceItem =
+    document.getElementById(
+      "serviceItem"
+    );
+
+  if (serviceItem) {
+
+    serviceItem.textContent =
+      order.package || "-";
+
+  }
+
+
+  /* Qty */
+
+  const serviceQty =
+    document.getElementById(
+      "serviceQty"
+    );
+
+  if (serviceQty) {
+
+    serviceQty.textContent =
+      "Qty: " +
+      (order.qty || 1);
+
+  }
+
+
+  /* Total service */
+
+  const serviceTotal =
+    document.getElementById(
+      "serviceTotal"
+    );
+
+  if (serviceTotal) {
+
+    serviceTotal.textContent =
+      formatRupiah(order.total);
+
+  }
+
+
+  /* Total */
+
+  const grandTotal =
+    document.getElementById(
+      "grandTotal"
+    );
+
+  if (grandTotal) {
+
+    grandTotal.textContent =
+      formatRupiah(order.total);
+
+  }
+
+
+  /* Tanggal */
+
+  const orderDate =
+    document.getElementById(
+      "orderDate"
+    );
+
+  if (orderDate) {
+
+    orderDate.textContent =
+      order.date || "-";
+
+  }
+
+
+  /* Jam */
+
+  const orderTime =
+    document.getElementById(
+      "orderTime"
+    );
+
+  if (orderTime) {
+
+    orderTime.textContent =
+      order.time || "-";
+
+  }
+
+
+  /* Alamat */
+
+  const address =
+    document.getElementById(
+      "customerAddress"
+    );
+
+  if (address) {
+
+    address.textContent =
+      order.address || "-";
+
+  }
+
+
+  /* Timeline */
+
+  updateTimeline(status);
+
 }
 
 
-/* ================= TIMELINE ================= */
+/* =====================================================
+   TIMELINE
+===================================================== */
 
-function updateTimeline() {
+function updateTimeline(status) {
 
-  const currentStep =
-    getStatusStep(
-      order.status
-    );
-
-
-  document
-    .querySelectorAll(
+  const items =
+    document.querySelectorAll(
       ".timeline-item"
-    )
-    .forEach(
-      item => {
-
-        const step =
-          Number(
-            item.dataset.step
-          );
-
-
-        item.classList.remove(
-          "active"
-        );
-
-
-        if (
-          step <= currentStep
-        ) {
-
-          item.classList.add(
-            "active"
-          );
-
-        }
-
-      }
     );
 
 
-  /* Waktu pesanan dibuat */
+  items.forEach(item => {
 
-  if (order.createdAt) {
+    item.classList.remove(
+      "active",
+      "completed"
+    );
 
-    document.getElementById(
-      "timeStep1"
-    ).textContent =
-      formatTime(
-        order.createdAt
+  });
+
+
+  let step = 1;
+
+
+  /*
+    Menunggu Konfirmasi
+    = Pesanan dibuat
+  */
+
+  if (
+    status ===
+    "Menunggu Konfirmasi"
+  ) {
+
+    step = 1;
+
+  }
+
+
+  /*
+    Pesanan Dikonfirmasi
+  */
+
+  else if (
+    status ===
+    "Pesanan Dikonfirmasi"
+  ) {
+
+    step = 2;
+
+  }
+
+
+  /*
+    Diproses
+    = Teknisi berangkat
+      dan cleaning berlangsung
+  */
+
+  else if (
+    status === "Diproses"
+  ) {
+
+    step = 4;
+
+  }
+
+
+  /*
+    Selesai
+  */
+
+  else if (
+    status === "Selesai"
+  ) {
+
+    step = 5;
+
+  }
+
+
+  items.forEach(item => {
+
+    const itemStep =
+      Number(
+        item.dataset.step
       );
 
-  }
 
-}
+    if (
+      itemStep < step
+    ) {
 
+      item.classList.add(
+        "completed"
+      );
 
-/* ================= DATE ================= */
-
-function formatDate(value) {
-
-  if (!value) {
-    return "-";
-  }
-
-
-  const date =
-    new Date(
-      value + "T00:00:00"
-    );
-
-
-  if (isNaN(date.getTime())) {
-    return value;
-  }
-
-
-  return date.toLocaleDateString(
-    "id-ID",
-    {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
     }
-  );
-
-}
 
 
-/* ================= TIME ================= */
+    if (
+      itemStep === step
+    ) {
 
-function formatTime(value) {
+      item.classList.add(
+        "active"
+      );
 
-  const date =
-    new Date(value);
-
-
-  if (isNaN(date.getTime())) {
-    return "-";
-  }
-
-
-  return date.toLocaleTimeString(
-    "id-ID",
-    {
-      hour: "2-digit",
-      minute: "2-digit"
     }
-  ) + " WIB";
+
+  });
 
 }
 
 
-/* ================= REFRESH ================= */
+/* =====================================================
+   REFRESH
+===================================================== */
 
-function refreshTracking() {
-
-  loadTracking();
-
-}
-
-
-/* ================= BACK ================= */
-
-function goBack() {
-
-  history.back();
-
-}
-
-
-/* ================= INVOICE ================= */
-
-function viewInvoice() {
-
-  window.location.href =
-    "invoice.html";
-
-}
-
-
-/* ================= WHATSAPP ================= */
-
-function contactWhatsApp() {
-
-  const ADMIN_NUMBER =
-    "6283813138221";
-
-
-  const message =
-
-`Halo Shae Cleaners.
-
-Saya ingin menanyakan pesanan:
-
-Invoice:
-${order?.invoice || "-"}
-
-Nama:
-${order?.customer?.name || order?.name || "-"}
-
-Layanan:
-${order?.layanan || order?.service || "-"}
-
-Paket:
-${order?.item || order?.paket || order?.package || "-"}
-
-Total:
-${formatRupiah(getOrderTotal())}
-
-Status:
-${order?.status || "Menunggu Konfirmasi"}`;
-
-
-  const url =
-    `https://wa.me/${ADMIN_NUMBER}?text=${encodeURIComponent(message)}`;
-
-
-  window.open(
-    url,
-    "_blank"
-  );
-
-}
-
-
-/* ================= EMPTY ================= */
-
-function showNoOrder() {
-
-  const container =
-    document.querySelector(
-      ".tracking-container"
-    );
-
-
-  container.innerHTML = `
-
-    <div
-      style="
-        margin:20px 13px;
-        padding:40px 20px;
-        text-align:center;
-        border-radius:14px;
-        background:white;
-      "
-    >
-
-      <div
-        style="
-          width:55px;
-          height:55px;
-          margin:auto auto 15px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          border-radius:50%;
-          background:#eafff5;
-          color:#00a86b;
-          font-size:20px;
-        "
-      >
-
-        <i class="fa-solid fa-box-open"></i>
-
-      </div>
-
-
-      <strong
-        style="
-          display:block;
-          margin-bottom:7px;
-          font-size:12px;
-        "
-      >
-
-        Belum Ada Pesanan
-
-      </strong>
-
-
-      <span
-        style="
-          color:#999;
-          font-size:8px;
-        "
-      >
-
-        Anda belum memiliki pesanan.
-
-      </span>
-
-
-      <br><br>
-
-
-      <button
-        onclick="window.location.href='index.html'"
-        style="
-          border:none;
-          border-radius:8px;
-          padding:10px 16px;
-          background:#00a86b;
-          color:white;
-          font-size:9px;
-          font-weight:bold;
-        "
-      >
-
-        Pesan Sekarang
-
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ================= START ================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+window.refreshTracking =
+  function () {
 
     loadTracking();
 
+  };
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+window.goBack =
+  function () {
+
+    if (
+      document.referrer
+    ) {
+
+      history.back();
+
+    } else {
+
+      window.location.href =
+        "index.html";
+
+    }
+
+  };
+
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
+
+window.contactWhatsApp =
+  function () {
+
+    let message =
+      "Halo Shae Cleaners,%0A%0A" +
+      "Saya ingin menanyakan pesanan saya.";
+
+    if (
+      currentOrder &&
+      currentOrder.invoice
+    ) {
+
+      message =
+        "Halo Shae Cleaners,%0A%0A" +
+        "Saya ingin menanyakan pesanan:%0A" +
+        "Invoice: " +
+        encodeURIComponent(
+          currentOrder.invoice
+        );
+
+    }
+
+
+    window.open(
+      "https://wa.me/" +
+      WA_NUMBER +
+      "?text=" +
+      message,
+      "_blank"
+    );
+
+  };
+
+
+/* =====================================================
+   INVOICE
+===================================================== */
+
+window.viewInvoice =
+  function () {
+
+    if (
+      currentOrder &&
+      currentOrder.invoice
+    ) {
+
+      window.location.href =
+        "invoice.html";
+
+    } else {
+
+      alert(
+        "Data invoice belum tersedia."
+      );
+
+    }
+
+  };
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+function showEmptyOrder(message) {
+
+  const invoice =
+    document.getElementById(
+      "invoiceNumber"
+    );
+
+  const status =
+    document.getElementById(
+      "currentStatus"
+    );
+
+  if (invoice) {
+
+    invoice.textContent = "-";
+
   }
+
+  if (status) {
+
+    status.textContent =
+      message;
+
+  }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  loadTracking
 );
