@@ -330,12 +330,12 @@ window.ubahStatus = async function(id, status) {
   try {
 
     await updateDoc(
-      doc(db, "orders", id),
-      {
-        status: status
-      }
-    );
-
+  doc(db, "orders", id),
+  {
+    status: status,
+    updatedAt: new Date()
+  }
+);
   } catch (error) {
 
     console.error(error);
